@@ -73,11 +73,11 @@ trap 'rm -rf "$ARTIFACTS_DIR"' EXIT
 gh run download --dir "$ARTIFACTS_DIR" --repo openai/codex "$WORKFLOW_ID"
 
 # x64 Linux
-zstd -d "$ARTIFACTS_DIR/x86_64-unknown-linux-musl/codex-x86_64-unknown-linux-musl.zst" \
-    -o "$BIN_DIR/codex-x86_64-unknown-linux-musl"
+zstd -d "$ARTIFACTS_DIR/x86_64-unknown-linux-gnu/codex-x86_64-unknown-linux-gnu.zst" \
+    -o "$BIN_DIR/codex-x86_64-unknown-linux-gnu"
 # ARM64 Linux
-zstd -d "$ARTIFACTS_DIR/aarch64-unknown-linux-musl/codex-aarch64-unknown-linux-musl.zst" \
-    -o "$BIN_DIR/codex-aarch64-unknown-linux-musl"
+zstd -d "$ARTIFACTS_DIR/aarch64-unknown-linux-gnu/codex-aarch64-unknown-linux-gnu.zst" \
+    -o "$BIN_DIR/codex-aarch64-unknown-linux-gnu"
 # x64 macOS
 zstd -d "$ARTIFACTS_DIR/x86_64-apple-darwin/codex-x86_64-apple-darwin.zst" \
     -o "$BIN_DIR/codex-x86_64-apple-darwin"
