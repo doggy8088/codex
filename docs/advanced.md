@@ -1,8 +1,8 @@
-## Advanced
+## 進階
 
-## Non-interactive / CI mode
+## 非互動式 / CI 模式
 
-Run Codex head-less in pipelines. Example GitHub Action step:
+在管道中無頭執行 Codex。GitHub Action 步驟範例：
 
 ```yaml
 - name: Update changelog via Codex
@@ -12,26 +12,26 @@ Run Codex head-less in pipelines. Example GitHub Action step:
     codex exec --full-auto "update CHANGELOG for next release"
 ```
 
-## Tracing / verbose logging
+## 追蹤 / 詳細記錄
 
-Because Codex is written in Rust, it honors the `RUST_LOG` environment variable to configure its logging behavior.
+因為 Codex 是用 Rust 撰寫的，它會遵循 `RUST_LOG` 環境變數來配置其記錄行為。
 
-The TUI defaults to `RUST_LOG=codex_core=info,codex_tui=info` and log messages are written to `~/.codex/log/codex-tui.log`, so you can leave the following running in a separate terminal to monitor log messages as they are written:
+TUI 預設為 `RUST_LOG=codex_core=info,codex_tui=info`，記錄訊息會寫入 `~/.codex/log/codex-tui.log`，因此您可以在另一個終端中執行以下命令來監控記錄訊息的寫入：
 
 ```
 tail -F ~/.codex/log/codex-tui.log
 ```
 
-By comparison, the non-interactive mode (`codex exec`) defaults to `RUST_LOG=error`, but messages are printed inline, so there is no need to monitor a separate file.
+相比之下，非互動式模式（`codex exec`）預設為 `RUST_LOG=error`，但訊息會內嵌列印，因此無需監控額外的檔案。
 
-See the Rust documentation on [`RUST_LOG`](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) for more information on the configuration options.
+有關配置選項的更多資訊，請參閱 Rust 關於 [`RUST_LOG`](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) 的文件。
 
 ## Model Context Protocol (MCP)
 
-The Codex CLI can be configured to leverage MCP servers by defining an [`mcp_servers`](./config.md#mcp_servers) section in `~/.codex/config.toml`. It is intended to mirror how tools such as Claude and Cursor define `mcpServers` in their respective JSON config files, though the Codex format is slightly different since it uses TOML rather than JSON, e.g.:
+可以透過在 `~/.codex/config.toml` 中定義 [`mcp_servers`](./config.md#mcp_servers) 區段來配置 Codex CLI 以利用 MCP 伺服器。它旨在模仿 Claude 和 Cursor 等工具在其各自 JSON 配置檔案中定義 `mcpServers` 的方式，儘管 Codex 格式略有不同，因為它使用 TOML 而非 JSON，例如：
 
 ```toml
-# IMPORTANT: the top-level key is `mcp_servers` rather than `mcpServers`.
+# 重要：頂層鍵是 `mcp_servers` 而非 `mcpServers`。
 [mcp_servers.server-name]
 command = "npx"
 args = ["-y", "mcp-server"]
@@ -39,4 +39,4 @@ env = { "API_KEY" = "value" }
 ```
 
 > [!TIP]
-> It is somewhat experimental, but the Codex CLI can also be run as an MCP _server_ via `codex mcp`. If you launch it with an MCP client such as `npx @modelcontextprotocol/inspector codex mcp` and send it a `tools/list` request, you will see that there is only one tool, `codex`, that accepts a grab-bag of inputs, including a catch-all `config` map for anything you might want to override. Feel free to play around with it and provide feedback via GitHub issues. 
+> 雖然有些實驗性，但 Codex CLI 也可以透過 `codex mcp` 作為 MCP _伺服器_ 執行。如果您使用 MCP 客戶端（如 `npx @modelcontextprotocol/inspector codex mcp`）啟動它並發送 `tools/list` 請求，您會看到只有一個工具 `codex`，它接受各種輸入，包括一個用於您可能想要覆蓋的任何內容的通用 `config` 映射。歡迎試用並透過 GitHub issues 提供意見回饋。
