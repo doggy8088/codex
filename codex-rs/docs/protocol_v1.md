@@ -1,25 +1,25 @@
 Overview of Protocol Defined in [protocol.rs](../core/src/protocol.rs) and [agent.rs](../core/src/agent.rs).
 
-The goal of this document is to define terminology used in the system and explain the expected behavior of the system.
+The goal 的 這個 document is 到 define terminology used 在 the system 和 explain the expected behavior 的 the system.
 
-NOTE: The code might not completely match this spec. There are a few minor changes that need to be made after this spec has been reviewed, which will not alter the existing TUI's functionality.
+NOTE: The code might not completely match 這個 spec. There are a few minor changes 那個 need 到 be made after 這個 spec has been reviewed, 哪個 will not alter the existing TUI's functionality.
 
 ## Entities
 
 These are entities exit on the codex backend. The intent of this section is to establish vocabulary and construct a shared mental model for the `Codex` core system.
 
 0. `Model`
-   - In our case, this is the Responses REST API
+   - 在 our case, 這個 is the Responses REST API
 1. `Codex`
-   - The core engine of codex
-   - Runs locally, either in a background thread or separate process
-   - Communicated to via a queue pair – SQ (Submission Queue) / EQ (Event Queue)
+   - The core engine 的 codex
+   - Runs locally, either 在 a background thread 或 separate process
+   - Communicated 到 via a queue pair – SQ (Submission Queue) / EQ (Event Queue)
    - Takes user input, makes requests to the `Model`, executes commands and applies patches.
 2. `Session`
    - The `Codex`'s current configuration and state
    - `Codex` starts with no `Session`, and it is initialized by `Op::ConfigureSession`, which should be the first message sent by the UI.
    - The current `Session` can be reconfigured with additional `Op::ConfigureSession` calls.
-   - Any running execution is aborted when the session is reconfigured.
+   - Any running execution is aborted 當 the session is reconfigured.
 3. `Task`
    - A `Task` is `Codex` executing work in response to user input.
    - `Session` has at most one `Task` running at a time.
@@ -30,13 +30,13 @@ These are entities exit on the codex backend. The intent of this section is to e
      - Additional `Op::UserInput` aborts the current task and starts a new one
      - UI interrupts with `Op::Interrupt`
      - Fatal errors are encountered, eg. `Model` connection exceeding retry limits
-     - Blocked by user approval (executing a command or patch)
+     - Blocked 透過 user approval (executing a 指令 或 patch)
 4. `Turn`
    - One cycle of iteration in a `Task`, consists of:
      - A request to the `Model` - (initially) prompt + (optional) `last_response_id`, or (in loop) previous turn output
      - The `Model` streams responses back in an SSE, which are collected until "completed" message and the SSE terminates
      - `Codex` then executes command(s), applies patch(es), and outputs message(s) returned by the `Model`
-     - Pauses to request approval when necessary
+     - Pauses 到 request approval 當 necessary
    - The output of one `Turn` is the input to the next `Turn`
    - A `Turn` yielding no output terminates the `Task`
 
@@ -83,13 +83,13 @@ Can operate over any transport that supports bi-directional streaming. - cross-t
 
 Non-framed transports, such as stdin/stdout and TCP, should use newline-delimited JSON in sending messages.
 
-## Example Flows
+## 範例 Flows
 
-Sequence diagram examples of common interactions. In each diagram, some unimportant events may be eliminated for simplicity.
+Sequence diagram 範例 的 common interactions. 在 each diagram, some unimportant events may be eliminated 為 simplicity.
 
 ### Basic UI Flow
 
-A single user input, followed by a 2-turn task
+A single user input, followed 透過 a 2-turn task
 
 ```mermaid
 sequenceDiagram
@@ -130,7 +130,7 @@ sequenceDiagram
 
 ### Task Interrupt
 
-Interrupting a task and continuing with additional user input.
+Interrupting a task 和 continuing 使用 additional user input.
 
 ```mermaid
 sequenceDiagram

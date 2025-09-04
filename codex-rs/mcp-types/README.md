@@ -1,4 +1,4 @@
-# mcp-types
+# MCP-types
 
 Types for Model Context Protocol. Inspired by https://crates.io/crates/lsp-types.
 

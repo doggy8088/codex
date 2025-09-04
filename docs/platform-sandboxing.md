@@ -1,6 +1,6 @@
 ### Platform sandboxing details
 
-The mechanism Codex uses to implement the sandbox policy depends on your OS:
+The mechanism codex uses 到 implement the sandbox policy depends 在 您的 OS:
 
 - **macOS 12+** uses **Apple Seatbelt** and runs commands using `sandbox-exec` with a profile (`-p`) that corresponds to the `--sandbox` that was specified.
 - **Linux** uses a combination of Landlock/seccomp APIs to enforce the `sandbox` configuration.

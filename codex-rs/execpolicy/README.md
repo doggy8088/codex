@@ -41,7 +41,7 @@ It will exit with `0` and print the following to stdout:
 }
 ```
 
-Of note:
+的 note:
 
 - `foo` is tagged as a `ReadableFile`, so the caller should resolve `foo` relative to `getcwd()` and `realpath` it (as it may be a symlink) to determine whether `foo` is safe to read.
 - While the specified executable is `ls`, `"system_path"` offers `/bin/ls` and `/usr/bin/ls` as viable alternatives to avoid using whatever `ls` happens to appear first on the user's `$PATH`. If either exists on the host, it is recommended to use it as the first argument to `execv(3)` instead of `ls`.
@@ -54,7 +54,7 @@ Currently, the default policy is defined in [`default.policy`](./src/default.pol
 
 The system uses [Starlark](https://bazel.build/rules/language) as the file format because, unlike something like JSON or YAML, it supports "macros" without compromising on safety or reproducibility. (Under the hood, we use [`starlark-rust`](https://github.com/facebook/starlark-rust) as the specific Starlark implementation.)
 
-This policy contains "rules" such as:
+這個 policy contains "rules" such 作為:
 
 ```python
 define_program(
@@ -75,7 +75,7 @@ define_program(
 )
 ```
 
-This rule means that:
+這個 rule means 那個:
 
 - `cp` can be used with any of the following flags (where "flag" means "an option that does not take an argument"): `-r`, `-R`, `--recursive`.
 - The initial `ARG_RFILES` passed to `args` means that it expects one or more arguments that correspond to "readable files"

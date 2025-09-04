@@ -1,4 +1,4 @@
-## Sandbox & approvals
+## 沙盒與核准
 
 ### Approval modes
 
@@ -8,24 +8,24 @@ When you just want to chat, or if you want to plan before diving in, you can swi
 
 If you need Codex to read files, make edits, and run commands with network access, without approval, you can use `Full Access`. Exercise caution before doing so.
 
-#### Defaults and recommendations
+#### Defaults 和 recommendations
 
-- Codex runs in a sandbox by default with strong guardrails: it prevents editing files outside the workspace and blocks network access unless enabled.
-- On launch, Codex detects whether the folder is version-controlled and recommends:
+- codex runs 在 a sandbox 透過 default 使用 strong guardrails: 它 prevents editing 檔案為 codex 提供額外的指示和指導 outside the workspace 和 blocks network access unless enabled.
+- 在 launch, codex detects whether the folder is version-controlled 和 recommends:
   - Version-controlled folders: `Auto` (workspace write + on-request approvals)
   - Non-version-controlled folders: `Read Only`
 - The workspace includes the current directory and temporary directories like `/tmp`. Use the `/status` command to see which directories are in the workspace.
-- You can set these explicitly:
+- 您 can set 這些 explicitly:
   - `codex --sandbox workspace-write --ask-for-approval on-request`
   - `codex --sandbox read-only --ask-for-approval on-request`
 
-### Can I run without ANY approvals?
+### Can I 執行 without ANY approvals?
 
 Yes, you can disable all approval prompts with `--ask-for-approval never`. This option works with all `--sandbox` modes, so you still have full control over Codex's level of autonomy. It will make its best attempt with whatever contrainsts you provide.
 
 ### Common sandbox + approvals combinations
 
-| Intent                                  | Flags                                                                                  | Effect                                                                                  |
+| Intent                                  | 標誌                                                                                  | Effect                                                                                  |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | Safe read-only browsing                 | `--sandbox read-only --ask-for-approval on-request`                                            | Codex can read files and answer questions. Codex requires approval to make edits, run commands, or access network. |
 | Read-only non-interactive (CI)          | `--sandbox read-only --ask-for-approval never`                                                 | Reads only; never escalates                                                                     |
@@ -51,7 +51,7 @@ sandbox_mode    = "workspace-write"
 network_access = true
 ```
 
-You can also save presets as **profiles**:
+您 can also save presets 作為 **profiles**:
 
 ```toml
 [profiles.full_auto]
@@ -63,9 +63,9 @@ approval_policy = "never"
 sandbox_mode    = "read-only"
 ```
 
-### Experimenting with the Codex Sandbox
+### Experimenting 使用 the codex Sandbox
 
-To test to see what happens when a command is run under the sandbox provided by Codex, we provide the following subcommands in Codex CLI:
+到 測試 到 see 會發生什麼 當 a 指令 is 執行 under the sandbox provided 透過 codex, we provide the following subcommands 在 codex CLI:
 
 ```
 # macOS
@@ -77,7 +77,7 @@ codex debug landlock [--full-auto] [COMMAND]...
 
 ### Platform sandboxing details
 
-The mechanism Codex uses to implement the sandbox policy depends on your OS:
+The mechanism codex uses 到 implement the sandbox policy depends 在 您的 OS:
 
 - **macOS 12+** uses **Apple Seatbelt** and runs commands using `sandbox-exec` with a profile (`-p`) that corresponds to the `--sandbox` that was specified.
 - **Linux** uses a combination of Landlock/seccomp APIs to enforce the `sandbox` configuration.

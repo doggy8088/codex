@@ -1,6 +1,6 @@
-# Containerized Development
+# Containerized 開發
 
-We provide the following options to facilitate Codex development in a container. This is particularly useful for verifying the Linux build when working on a macOS host.
+We provide  following options 到 facilitate Codex 開發 在 一個 container. 這個 is particularly useful 為 verifying  Linux 建構 當 working 在 一個 macOS host.
 
 ## Docker
 

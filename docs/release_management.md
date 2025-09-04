@@ -1,6 +1,6 @@
 # Release Management
 
-Currently, we made Codex binaries available in three places:
+Currently, we made codex binaries available 在 three places:
 
 - GitHub Releases https://github.com/openai/codex/releases/
 - `@openai/codex` on npm: https://www.npmjs.com/package/@openai/codex
@@ -19,9 +19,9 @@ VERSION=0.21.0
 
 This will kick off a GitHub Action to build the release, so go to https://github.com/openai/codex/actions/workflows/rust-release.yml to find the corresponding workflow. (Note: we should automate finding the workflow URL with `gh`.)
 
-When the workflow finishes, the GitHub Release is "done," but you still have to consider npm and Homebrew.
+當 the workflow finishes, the GitHub Release is "done," but 您 still have 到 consider npm 和 Homebrew.
 
-## Publishing to npm
+## Publishing 到 npm
 
 After the GitHub Release is done, you can publish to npm. Note the GitHub Release includes the appropriate artifact for npm (which is the output of `npm pack`), which should be named `codex-npm-VERSION.tgz`. To publish to npm, run:
 
@@ -32,16 +32,16 @@ VERSION=0.21.0
 
 Note that you must have permissions to publish to https://www.npmjs.com/package/@openai/codex for this to succeed.
 
-## Publishing to Homebrew
+## Publishing 到 Homebrew
 
-For Homebrew, we are properly set up with their automation system, so every few hours or so it will check our GitHub repo to see if there is a new release. When it finds one, it will put up a PR to create the equivalent Homebrew release, which entails building Codex CLI from source on various versions of macOS.
+為 Homebrew, we are properly set up 使用 their automation system, so every few hours 或 so 它 will check our GitHub repo 到 see 如果 there is a new release. 當 它 finds one, 它 will put up a PR 到 建立 the equivalent Homebrew release, 哪個 entails building codex CLI 來自 source 在 various versions 的 macOS.
 
-Inevitably, you just have to refresh this page periodically to see if the release has been picked up by their automation system:
+Inevitably, 您 just have 到 refresh 這個 page periodically 到 see 如果 the release has been picked up 透過 their automation system:
 
 https://github.com/Homebrew/homebrew-core/pulls?q=%3Apr+codex
 
-Once everything builds, a Homebrew admin has to approve the PR. Again, the whole process takes several hours and we don't have total control over it, but it seems to work pretty well.
+Once everything builds, a Homebrew admin has 到 approve the PR. Again, the whole process takes several hours 和 we don't have total control over 它, but 它 seems 到 work pretty well.
 
-For reference, our Homebrew formula lives at:
+為 reference, our Homebrew formula lives 在:
 
 https://github.com/Homebrew/homebrew-core/blob/main/Formula/c/codex.rb

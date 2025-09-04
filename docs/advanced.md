@@ -1,8 +1,8 @@
-## Advanced
+## 進階
 
-## Non-interactive / CI mode
+## 非互動式 / CI 模式
 
-Run Codex head-less in pipelines. Example GitHub Action step:
+執行 codex head-less 在 pipelines. 範例 GitHub Action step:
 
 ```yaml
 - name: Update changelog via Codex
@@ -12,7 +12,7 @@ Run Codex head-less in pipelines. Example GitHub Action step:
     codex exec --full-auto "update CHANGELOG for next release"
 ```
 
-## Tracing / verbose logging
+## 追蹤 / 詳細記錄
 
 Because Codex is written in Rust, it honors the `RUST_LOG` environment variable to configure its logging behavior.
 

@@ -1,6 +1,6 @@
 # codex-core
 
-This crate implements the business logic for Codex. It is designed to be used by the various Codex UIs written in Rust.
+這個 crate implements the business logic 為 codex. 它 is designed 到 be used 透過 the various codex UIs written 在 Rust.
 
 ## Dependencies
 

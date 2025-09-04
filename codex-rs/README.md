@@ -1,8 +1,8 @@
-# Codex CLI (Rust Implementation)
+# codex CLI (Rust Implementation)
 
-We provide Codex CLI as a standalone, native executable to ensure a zero-dependency install.
+We provide codex CLI 作為 a standalone, native executable 到 ensure a zero-dependency 安裝.
 
-## Installing Codex
+## Installing codex
 
 Today, the easiest way to install Codex is via `npm`, though we plan to publish Codex to other package managers soon.
 
@@ -13,7 +13,7 @@ codex
 
 You can also download a platform-specific release directly from our [GitHub Releases](https://github.com/openai/codex/releases).
 
-## What's new in the Rust CLI
+## 什麼's new 在 the Rust CLI
 
 While we are [working to close the gap between the TypeScript and Rust implementations of Codex CLI](https://github.com/openai/codex/issues/1262), note that the Rust CLI has a number of features that the TypeScript CLI does not!
 
@@ -43,9 +43,9 @@ To run Codex non-interactively, run `codex exec PROMPT` (you can also pass the p
 
 Typing `@` triggers a fuzzy-filename search over the workspace root. Use up/down to select among the results and Tab or Enter to replace the `@` with the selected path. You can use Esc to cancel the search.
 
-### Esc–Esc to edit a previous message
+### Esc–Esc 編輯上一則訊息
 
-When the chat composer is empty, press Esc to prime “backtrack” mode. Press Esc again to open a transcript preview highlighting the last user message; press Esc repeatedly to step to older user messages. Press Enter to confirm and Codex will fork the conversation from that point, trim the visible transcript accordingly, and pre‑fill the composer with the selected user message so you can edit and resubmit it.
+當 the chat composer is empty, press Esc 到 prime “backtrack” mode. 再次按 Esc 開啟突出顯示最後一則使用者訊息的對話預覽; 重複按 Esc 可回到更舊的使用者訊息. 按 Enter 確認，codex 將從該點分叉對話, 相應地修剪可見對話記錄, 並用選取的使用者訊息預填編輯器，以便您可以編輯並重新提交.
 
 In the transcript preview, the footer shows an `Esc edit prev` hint while editing is active.
 
@@ -53,9 +53,9 @@ In the transcript preview, the footer shows an `Esc edit prev` hint while editin
 
 Sometimes it is not convenient to `cd` to the directory you want Codex to use as the "working root" before running Codex. Fortunately, `codex` supports a `--cd` option so you can specify whatever folder you want. You can confirm that Codex is honoring `--cd` by double-checking the **workdir** it reports in the TUI at the start of a new session.
 
-### Shell completions
+### Shell 自動完成
 
-Generate shell completion scripts via:
+透過以下方式產生 shell 自動完成腳本:
 
 ```shell
 codex completion bash
@@ -63,9 +63,9 @@ codex completion zsh
 codex completion fish
 ```
 
-### Experimenting with the Codex Sandbox
+### Experimenting 使用 the codex Sandbox
 
-To test to see what happens when a command is run under the sandbox provided by Codex, we provide the following subcommands in Codex CLI:
+到 測試 到 see 會發生什麼 當 a 指令 is 執行 under the sandbox provided 透過 codex, we provide the following subcommands 在 codex CLI:
 
 ```
 # macOS
@@ -94,7 +94,7 @@ The same setting can be persisted in `~/.codex/config.toml` via the top-level `s
 
 ## Code Organization
 
-This folder is the root of a Cargo workspace. It contains quite a bit of experimental code, but here are the key crates:
+這個 folder is the root 的 a Cargo workspace. 它 contains quite a bit 的 experimental code, but here are the key crates:
 
 - [`core/`](./core) contains the business logic for Codex. Ultimately, we hope this to be a library crate that is generally useful for building other Rust/native applications that use Codex.
 - [`exec/`](./exec) "headless" CLI for use in automation.

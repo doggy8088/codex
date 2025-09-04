@@ -1,6 +1,6 @@
-Troubleshoot whether the reported issue is valid.
+Troubleshoot whether  reported issue is valid.
 
-Provide a concise and respectful comment summarizing the findings.
+Provide 一個 concise 和 respectful comment summarizing  findings.
 
 ### {CODEX_ACTION_ISSUE_TITLE}
 

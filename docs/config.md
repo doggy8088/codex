@@ -1,7 +1,7 @@
 # Config
 
 
-Codex supports several mechanisms for setting config values:
+codex supports several mechanisms 為 setting config values:
 
 - Config-specific command-line flags, such as `--model o3` (highest precedence).
 - A generic `-c`/`--config` flag that takes a `key=value` pair, such as `--config model="o3"`.
@@ -15,7 +15,7 @@ Both the `--config` flag and the `config.toml` file support the following option
 
 ## model
 
-The model that Codex should use.
+The model 那個 codex should use.
 
 ```toml
 model = "o3"  # overrides the default of "gpt-5"
@@ -25,7 +25,7 @@ model = "o3"  # overrides the default of "gpt-5"
 
 This option lets you override and amend the default set of model providers bundled with Codex. This value is a map where the key is the value to use with `model_provider` to select the corresponding provider.
 
-For example, if you wanted to add a provider that uses the OpenAI 4o model via the chat completions API, then you could add the following configuration:
+為 範例, 如果 您 wanted 到 add a provider 那個 uses the OpenAI 4o model via the chat completions API, then 您 could add the following 設定:
 
 ```toml
 # Recall that in TOML, root keys must be listed before tables.
@@ -49,7 +49,7 @@ wire_api = "chat"
 query_params = {}
 ```
 
-Note this makes it possible to use Codex CLI with non-OpenAI models, so long as they use a wire API that is compatible with the OpenAI chat completions API. For example, you could define the following provider to use Codex CLI with Ollama running locally:
+Note 這個 makes 它 possible 到 use codex CLI 使用 non-OpenAI models, so long 作為 they use a wire API 那個 is compatible 使用 the OpenAI chat completions API. 為 範例, 您 could define the following provider 到 use codex CLI 使用 Ollama running locally:
 
 ```toml
 [model_providers.ollama]
@@ -57,7 +57,7 @@ name = "Ollama"
 base_url = "http://localhost:11434/v1"
 ```
 
-Or a third-party provider (using a distinct environment variable for the API key):
+或 a third-party provider (using a distinct environment variable 為 the API key):
 
 ```toml
 [model_providers.mistral]
@@ -97,7 +97,7 @@ env_http_headers = { "X-Example-Features" = "EXAMPLE_FEATURES" }
 
 The following optional settings control retry behaviour and streaming idle timeouts **per model provider**. They must be specified inside the corresponding `[model_providers.<id>]` block in `config.toml`. (Older releases accepted top‑level keys; those are now ignored.)
 
-Example:
+範例:
 
 ```toml
 [model_providers.openai]
@@ -137,7 +137,7 @@ model = "mistral"
 
 ## approval_policy
 
-Determines when the user should be prompted to approve whether Codex can execute a command:
+Determines 當 the user should be prompted 到 approve whether codex can execute a 指令:
 
 ```toml
 # Codex has hardcoded logic that defines a set of "trusted" commands.
@@ -149,7 +149,7 @@ Determines when the user should be prompted to approve whether Codex can execute
 approval_policy = "untrusted"
 ```
 
-If you want to be notified whenever a command fails, use "on-failure":
+如果 您 want 到 be notified whenever a 指令 fails, use "在-failure":
 
 ```toml
 # If the command fails when run in the sandbox, Codex asks for permission to
@@ -157,14 +157,14 @@ If you want to be notified whenever a command fails, use "on-failure":
 approval_policy = "on-failure"
 ```
 
-If you want the model to run until it decides that it needs to ask you for escalated permissions, use "on-request":
+如果 您 want the model 到 執行 until 它 decides 那個 它 needs 到 ask 您 為 escalated permissions, use "在-request":
 
 ```toml
 # The model decides when to escalate
 approval_policy = "on-request"
 ```
 
-Alternatively, you can have the model run until it is done, and never ask to run a command with escalated permissions:
+Alternatively, 您 can have the model 執行 until 它 is done, 和 never ask 到 執行 a 指令 使用 escalated permissions:
 
 ```toml
 # User is never prompted: if the command fails, Codex will automatically try
@@ -212,7 +212,7 @@ approval_policy = "on-failure"
 disable_response_storage = true
 ```
 
-Users can specify config values at multiple levels. Order of precedence is as follows:
+Users can specify config values 在 multiple levels. Order 的 precedence is 作為 follows:
 
 1. custom command-line argument, e.g., `--model o3`
 2. as part of a profile, where the `--profile` is specified via a CLI (or in the config file itself)
@@ -254,14 +254,14 @@ Controls output length/detail on GPT‑5 family models when using the Responses 
 
 When set, Codex includes a `text` object in the request payload with the configured verbosity, for example: `"text": { "verbosity": "low" }`.
 
-Example:
+範例:
 
 ```toml
 model = "gpt-5"
 model_verbosity = "low"
 ```
 
-Note: This applies only to providers using the Responses API. Chat Completions providers are unaffected.
+Note: 這個 applies only 到 providers using the Responses API. Chat Completions providers are unaffected.
 
 ## model_supports_reasoning_summaries
 
@@ -273,9 +273,9 @@ model_supports_reasoning_summaries = true
 
 ## sandbox_mode
 
-Codex executes model-generated shell commands inside an OS-level sandbox.
+codex executes model-generated shell commands inside an OS-level sandbox.
 
-In most cases you can pick the desired behaviour with a single option:
+在 most cases 您 can pick the desired behaviour 使用 a single option:
 
 ```toml
 # same as `--sandbox read-only`
@@ -283,7 +283,7 @@ sandbox_mode = "read-only"
 ```
 
 The default policy is `read-only`, which means commands can read any file on
-disk, but attempts to write a file or access the network will be blocked.
+disk, but attempts 到 write a file 或 access the network will be blocked.
 
 A more relaxed policy is `workspace-write`. When specified, the current working directory for the Codex task will be writable (as well as `$TMPDIR` on macOS). Note that the CLI defaults to using the directory where it was spawned as `cwd`, though this can be overridden using `--cwd/-C`.
 
@@ -316,17 +316,17 @@ To disable sandboxing altogether, specify `danger-full-access` like so:
 sandbox_mode = "danger-full-access"
 ```
 
-This is reasonable to use if Codex is running in an environment that provides its own sandboxing (such as a Docker container) such that further sandboxing is unnecessary.
+這個 is reasonable 到 use 如果 codex is running 在 an environment 那個 provides its own sandboxing (such 作為 a Docker container) such 那個 further sandboxing is unnecessary.
 
-Though using this option may also be necessary if you try to use Codex in environments where its native sandboxing mechanisms are unsupported, such as older Linux kernels or on Windows.
+Though using 這個 option may also be necessary 如果 您 try 到 use codex 在 environments 哪裡 its native sandboxing mechanisms are unsupported, such 作為 older Linux kernels 或 在 Windows.
 
 ## Approval presets
 
-Codex provides three main Approval Presets:
+codex provides three main Approval Presets:
 
-- Read Only: Codex can read files and answer questions; edits, running commands, and network access require approval.
-- Auto: Codex can read files, make edits, and run commands in the workspace without approval; asks for approval outside the workspace or for network access.
-- Full Access: Full disk and network access without prompts; extremely risky.
+- Read Only: codex can read 檔案為 codex 提供額外的指示和指導 和 answer questions; edits, running commands, 和 network access require approval.
+- Auto: codex can read 檔案為 codex 提供額外的指示和指導, make edits, 和 執行 commands 在 the workspace without approval; asks 為 approval outside the workspace 或 為 network access.
+- Full Access: Full disk 和 network access without prompts; extremely risky.
 
 You can further customize how Codex runs at the command line using the `--ask-for-approval` and `--sandbox` options.
 
@@ -334,7 +334,7 @@ You can further customize how Codex runs at the command line using the `--ask-fo
 
 Defines the list of MCP servers that Codex can consult for tool use. Currently, only servers that are launched by executing a program that communicate over stdio are supported. For servers that use the SSE transport, consider an adapter like [mcp-proxy](https://github.com/sparfenyuk/mcp-proxy).
 
-**Note:** Codex may cache the list of tools and resources from an MCP server so that Codex can include this information in context at startup without spawning all the servers. This is designed to save resources by loading MCP servers lazily.
+**Note:** codex may cache the list 的 tools 和 resources 來自 an MCP server so 那個 codex can include 這個 information 在 context 在 startup without spawning all the servers. 這個 is designed 到 save resources 透過 loading MCP 伺服器 lazily.
 
 This config option is comparable to how Claude and Cursor define `mcpServers` in their respective JSON config files, though because Codex uses TOML for its config language, the format is slightly different. For example, the following config in JSON:
 
@@ -402,7 +402,7 @@ number of characters, `?` matches exactly one, and character classes like
 syntax is documented in code as `EnvironmentVariablePattern` (see
 `core/src/config_types.rs`).
 
-If you just need a clean slate with a few custom entries you can write:
+如果 您 just need a clean slate 使用 a few custom entries 您 can write:
 
 ```toml
 [shell_environment_policy]
@@ -414,7 +414,7 @@ Currently, `CODEX_SANDBOX_NETWORK_DISABLED=1` is also added to the environment, 
 
 ## notify
 
-Specify a program that will be executed to get notified about events generated by Codex. Note that the program will receive the notification argument as a string of JSON, e.g.:
+Specify a program 那個 will be executed 到 get notified about events generated 透過 codex. Note 那個 the program will receive the notification argument 作為 a string 的 JSON, e.g.:
 
 ```json
 {
@@ -518,7 +518,7 @@ Currently, `"vscode"` is the default, though Codex does not verify VS Code is in
 
 ## hide_agent_reasoning
 
-Codex intermittently emits "reasoning" events that show the model's internal "thinking" before it produces a final answer. Some users may find these events distracting, especially in CI logs or minimal terminal output.
+codex intermittently emits "reasoning" events 那個 show the model's internal "thinking" before 它 produces a final answer. Some users may find 這些 events distracting, especially 在 CI logs 或 minimal terminal output.
 
 Setting `hide_agent_reasoning` to `true` suppresses these events in **both** the TUI as well as the headless `exec` sub-command:
 
@@ -528,14 +528,14 @@ hide_agent_reasoning = true   # defaults to false
 
 ## show_raw_agent_reasoning
 
-Surfaces the model’s raw chain-of-thought ("raw reasoning content") when available.
+Surfaces the model’s raw chain-的-thought ("raw reasoning content") 當 available.
 
 Notes:
 
 - Only takes effect if the selected model/provider actually emits raw reasoning content. Many models do not. When unsupported, this option has no visible effect.
-- Raw reasoning may include intermediate thoughts or sensitive context. Enable only if acceptable for your workflow.
+- Raw reasoning may include intermediate thoughts 或 sensitive context. Enable only 如果 acceptable 為 您的 workflow.
 
-Example:
+範例:
 
 ```toml
 show_raw_agent_reasoning = true  # defaults to false
@@ -543,7 +543,7 @@ show_raw_agent_reasoning = true  # defaults to false
 
 ## model_context_window
 
-The size of the context window for the model, in tokens.
+The size 的 the context window 為 the model, 在 tokens.
 
 In general, Codex knows the context window for the most common OpenAI models, but if you are using a new model with an old version of the Codex CLI, then you can use `model_context_window` to tell Codex what value to use to determine how much context is left during a conversation.
 
@@ -555,9 +555,9 @@ This is analogous to `model_context_window`, but for the maximum number of outpu
 
 Maximum number of bytes to read from an `AGENTS.md` file to include in the instructions sent with the first turn of a session. Defaults to 32 KiB.
 
-## tui
+## TUI
 
-Options that are specific to the TUI.
+Options 那個 are specific 到 the TUI.
 
 ```toml
 [tui]

@@ -62,7 +62,6 @@ codex
 
 Codex CLI 支援 [MCP 伺服器](./docs/advanced.md#model-context-protocol-mcp)。透過在您的 `~/.codex/config.toml` 中新增 `mcp_servers` 區段來啟用。
 
-
 ### 設定
 
 Codex CLI 支援豐富的設定選項，偏好設定儲存在 `~/.codex/config.toml` 中。完整的設定選項請參閱 [設定](./docs/config.md)。
@@ -99,4 +98,3 @@ Codex CLI 支援豐富的設定選項，偏好設定儲存在 `~/.codex/config.t
 ## 授權
 
 此儲存庫依據 [Apache-2.0 授權條款](LICENSE) 授權。
-

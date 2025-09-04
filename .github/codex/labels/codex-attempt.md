@@ -1,8 +1,8 @@
-Attempt to solve the reported issue.
+Attempt 到 solve  reported issue.
 
-If a code change is required, create a new branch, commit the fix, and open a pull request that resolves the problem.
+如果 一個 code change is required, 建立 一個 new 分支, 提交  fix, 和 open 一個 拉取請求 那個 resolves  problem.
 
-Here is the original GitHub issue that triggered this run:
+Here is  original GitHub issue 那個 triggered 這個 執行:
 
 ### {CODEX_ACTION_ISSUE_TITLE}
 

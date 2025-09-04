@@ -63,24 +63,24 @@
 
 ## Experimental technology disclaimer
 
-Codex CLI is an experimental project under active development. It is not yet stable, may contain bugs, incomplete features, or undergo breaking changes. We're building it in the open with the community and welcome:
+codex CLI is an experimental project under active 開發. 它 is not yet stable, may contain bugs, incomplete features, 或 undergo breaking changes. We're building 它 在 the open 使用 the community 和 welcome:
 
 - Bug reports
 - Feature requests
 - Pull requests
 - Good vibes
 
-Help us improve by filing issues or submitting PRs (see the section below for how to contribute)!
+Help us improve 透過 filing issues 或 submitting PR (請參閱 section below 為 如何 到 contribute)!
 
-## Quickstart
+## 快速開始
 
-Install globally:
+安裝 globally:
 
 ```shell
 npm install -g @openai/codex
 ```
 
-Next, set your OpenAI API key as an environment variable:
+Next, set 您的 OpenAI API key 作為 an environment variable:
 
 ```shell
 export OPENAI_API_KEY="your-api-key-here"
@@ -89,7 +89,7 @@ export OPENAI_API_KEY="your-api-key-here"
 > **Note:** This command sets the key only for your current terminal session. You can add the `export` line to your shell's configuration file (e.g., `~/.zshrc`) but we recommend setting for the session. **Tip:** You can also place your API key into a `.env` file at the root of your project:
 >
 > ```env
-> OPENAI_API_KEY=your-api-key-here
+> OPENAI_API_KEY=您的-API-key-here
 > ```
 >
 > The CLI will automatically load variables from `.env` (via `dotenv/config`).
@@ -109,15 +109,15 @@ export OPENAI_API_KEY="your-api-key-here"
 > - xai
 > - groq
 > - arceeai
-> - any other provider that is compatible with the OpenAI API
+> - any other provider 那個 is compatible 使用 the OpenAI API
 >
-> If you use a provider other than OpenAI, you will need to set the API key for the provider in the config file or in the environment variable as:
+> 如果 您 use a provider other than OpenAI, 您 will need 到 set the API key 為 the provider 在 the config file 或 在 the environment variable 作為:
 >
 > ```shell
-> export <provider>_API_KEY="your-api-key-here"
+> export <provider>_API_KEY="您的-API-key-here"
 > ```
 >
-> If you use a provider not listed above, you must also set the base URL for the provider:
+> 如果 您 use a provider not listed above, 您 must also set the base URL 為 the provider:
 >
 > ```shell
 > export <provider>_BASE_URL="https://your-provider-api-base-url"
@@ -126,7 +126,7 @@ export OPENAI_API_KEY="your-api-key-here"
 </details>
 <br />
 
-Run interactively:
+執行 interactively:
 
 ```shell
 codex
@@ -142,74 +142,74 @@ codex "explain this codebase to me"
 codex --approval-mode full-auto "create the fanciest todo-list app"
 ```
 
-That's it - Codex will scaffold a file, run it inside a sandbox, install any
-missing dependencies, and show you the live result. Approve the changes and
-they'll be committed to your working directory.
+那個's 它 - codex will scaffold a file, 執行 它 inside a sandbox, 安裝 any
+missing dependencies, 和 show 您 the live result. Approve the changes 和
+they'll be committed 到 您的 working directory.
 
 ---
 
-## Why Codex?
+## 為什麼 codex?
 
-Codex CLI is built for developers who already **live in the terminal** and want
-ChatGPT-level reasoning **plus** the power to actually run code, manipulate
-files, and iterate - all under version control. In short, it's _chat-driven
-development_ that understands and executes your repo.
+codex CLI is built 為 developers who already **live 在 the terminal** 和 want
+ChatGPT-level reasoning **Plus** the power 到 actually 執行 code, manipulate
+檔案為 codex 提供額外的指示和指導, 和 iterate - all under version control. 在 short, 它's _chat-driven
+development_ 那個 understands 和 executes 您的 repo.
 
-- **Zero setup** - bring your OpenAI API key and it just works!
-- **Full auto-approval, while safe + secure** by running network-disabled and directory-sandboxed
-- **Multimodal** - pass in screenshots or diagrams to implement features ✨
+- **Zero 設置** - bring 您的 OpenAI API key 和 它 just works!
+- **Full auto-approval, while safe + secure** 透過 running network-disabled 和 directory-sandboxed
+- **Multimodal** - pass 在 screenshots 或 diagrams 到 implement features ✨
 
-And it's **fully open-source** so you can see and contribute to how it develops!
+和 它's **fully open-source** so 您 can see 和 contribute 到 如何 它 develops!
 
 ---
 
 ## Security model & permissions
 
-Codex lets you decide _how much autonomy_ the agent receives and auto-approval policy via the
+codex lets 您 decide _how much autonomy_ the agent receives 和 auto-approval policy via the
 `--approval-mode` flag (or the interactive onboarding prompt):
 
-| Mode                      | What the agent may do without asking                                                                | Still requires approval                                                                         |
+| Mode                      | 什麼 the agent may do without asking                                                                | Still requires approval                                                                         |
 | ------------------------- | --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | **Suggest** <br>(default) | <li>Read any file in the repo                                                                       | <li>**All** file writes/patches<li> **Any** arbitrary shell commands (aside from reading files) |
 | **Auto Edit**             | <li>Read **and** apply-patch writes to files                                                        | <li>**All** shell commands                                                                      |
 | **Full Auto**             | <li>Read/write files <li> Execute shell commands (network disabled, writes limited to your workdir) | -                                                                                               |
 
-In **Full Auto** every command is run **network-disabled** and confined to the
-current working directory (plus temporary files) for defense-in-depth. Codex
-will also show a warning/confirmation if you start in **auto-edit** or
-**full-auto** while the directory is _not_ tracked by Git, so you always have a
+在 **Full Auto** every 指令 is 執行 **network-disabled** 和 confined 到 the
+current working directory (Plus temporary 檔案為 codex 提供額外的指示和指導) 為 defense-在-depth. codex
+will also show a warning/confirmation 如果 您 start 在 **auto-edit** 或
+**full-auto** while the directory is _not_ tracked 透過 git, so 您 always have a
 safety net.
 
-Coming soon: you'll be able to whitelist specific commands to auto-execute with
-the network enabled, once we're confident in additional safeguards.
+Coming soon: 您'll be able 到 whitelist specific commands 到 auto-execute 使用
+the network enabled, once we're confident 在 additional safeguards.
 
 ### Platform sandboxing details
 
-The hardening mechanism Codex uses depends on your OS:
+The hardening mechanism codex uses depends 在 您的 OS:
 
 - **macOS 12+** - commands are wrapped with **Apple Seatbelt** (`sandbox-exec`).
 
-  - Everything is placed in a read-only jail except for a small set of
+  - Everything is placed 在 a read-only jail except 為 a small set 的
     writable roots (`$PWD`, `$TMPDIR`, `~/.codex`, etc.).
-  - Outbound network is _fully blocked_ by default - even if a child process
+  - Outbound network is _fully blocked_ 透過 default - even 如果 a child process
     tries to `curl` somewhere it will fail.
 
-- **Linux** - there is no sandboxing by default.
-  We recommend using Docker for sandboxing, where Codex launches itself inside a **minimal
+- **Linux** - there is no sandboxing 透過 default.
+  We recommend using Docker 為 sandboxing, 哪裡 codex launches itself inside a **minimal
   container image** and mounts your repo _read/write_ at the same path. A
   custom `iptables`/`ipset` firewall script denies all egress except the
-  OpenAI API. This gives you deterministic, reproducible runs without needing
+  OpenAI API. 這個 gives 您 deterministic, reproducible runs without needing
   root on the host. You can use the [`run_in_container.sh`](../codex-cli/scripts/run_in_container.sh) script to set up the sandbox.
 
 ---
 
-## System requirements
+## 系統需求
 
 | Requirement                 | Details                                                         |
 | --------------------------- | --------------------------------------------------------------- |
 | Operating systems           | macOS 12+, Ubuntu 20.04+/Debian 10+, or Windows 11 **via WSL2** |
-| Node.js                     | **22 or newer** (LTS recommended)                               |
-| Git (optional, recommended) | 2.23+ for built-in PR helpers                                   |
+| Node.js                     | **22 或 newer** (LTS recommended)                               |
+| git (optional, recommended) | 2.23+ 為 built-在 PR helpers                                   |
 | RAM                         | 4-GB minimum (8-GB recommended)                                 |
 
 > Never run `sudo npm install -g`; fix npm permissions instead.
@@ -218,7 +218,7 @@ The hardening mechanism Codex uses depends on your OS:
 
 ## CLI reference
 
-| Command                              | Purpose                             | Example                              |
+| 指令                              | 目的                             | 範例                              |
 | ------------------------------------ | ----------------------------------- | ------------------------------------ |
 | `codex`                              | Interactive REPL                    | `codex`                              |
 | `codex "..."`                        | Initial prompt for interactive REPL | `codex "fix lint errors"`            |
@@ -241,9 +241,9 @@ Disable loading of these files with `--no-project-doc` or the environment variab
 
 ---
 
-## Non-interactive / CI mode
+## 非互動式 / CI 模式
 
-Run Codex head-less in pipelines. Example GitHub Action step:
+執行 codex head-less 在 pipelines. 範例 GitHub Action step:
 
 ```yaml
 - name: Update changelog via Codex
@@ -255,7 +255,7 @@ Run Codex head-less in pipelines. Example GitHub Action step:
 
 Set `CODEX_QUIET_MODE=1` to silence interactive UI noise.
 
-## Tracing / verbose logging
+## 追蹤 / 詳細記錄
 
 Setting the environment variable `DEBUG=true` prints full API request and response details:
 
@@ -269,7 +269,7 @@ DEBUG=true codex
 
 Below are a few bite-size examples you can copy-paste. Replace the text in quotes with your own task. See the [prompting guide](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md) for more tips and usage patterns.
 
-| ✨  | What you type                                                                   | What happens                                                               |
+| ✨  | 您輸入的內容                                                                   | 會發生什麼                                                               |
 | --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | 1   | `codex "Refactor the Dashboard component to React Hooks"`                       | Codex rewrites the class component, runs `npm test`, and shows the diff.   |
 | 2   | `codex "Generate SQL migrations for adding a users table"`                      | Infers your ORM, creates migration files, and runs them in a sandboxed DB. |
@@ -281,7 +281,7 @@ Below are a few bite-size examples you can copy-paste. Replace the text in quote
 
 ---
 
-## Installation
+## 安裝
 
 <details open>
 <summary><strong>From npm (Recommended)</strong></summary>
@@ -330,11 +330,11 @@ pnpm link
 
 ---
 
-## Configuration guide
+## 設定 guide
 
 Codex configuration files can be placed in the `~/.codex/` directory, supporting both YAML and JSON formats.
 
-### Basic configuration parameters
+### Basic 設定 parameters
 
 | Parameter           | Type    | Default    | Description                      | Available Options                                                                              |
 | ------------------- | ------- | ---------- | -------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -343,27 +343,27 @@ Codex configuration files can be placed in the `~/.codex/` directory, supporting
 | `fullAutoErrorMode` | string  | `ask-user` | Error handling in full-auto mode | `ask-user` (prompt for user input)<br>`ignore-and-continue` (ignore and proceed)               |
 | `notify`            | boolean | `true`     | Enable desktop notifications     | `true`/`false`                                                                                 |
 
-### Custom AI provider configuration
+### Custom AI provider 設定
 
 In the `providers` object, you can configure multiple AI service providers. Each provider requires the following parameters:
 
-| Parameter | Type   | Description                             | Example                       |
+| Parameter | Type   | Description                             | 範例                       |
 | --------- | ------ | --------------------------------------- | ----------------------------- |
 | `name`    | string | Display name of the provider            | `"OpenAI"`                    |
 | `baseURL` | string | API service URL                         | `"https://api.openai.com/v1"` |
 | `envKey`  | string | Environment variable name (for API key) | `"OPENAI_API_KEY"`            |
 
-### History configuration
+### History 設定
 
 In the `history` object, you can configure conversation history settings:
 
-| Parameter           | Type    | Description                                            | Example Value |
+| Parameter           | Type    | Description                                            | 範例 Value |
 | ------------------- | ------- | ------------------------------------------------------ | ------------- |
 | `maxSize`           | number  | Maximum number of history entries to save              | `1000`        |
 | `saveHistory`       | boolean | Whether to save history                                | `true`        |
 | `sensitivePatterns` | array   | Patterns of sensitive information to filter in history | `[]`          |
 
-### Configuration examples
+### 設定 範例
 
 1. YAML format (save as `~/.codex/config.yaml`):
 
@@ -385,7 +385,7 @@ notify: true
 }
 ```
 
-### Full configuration example
+### Full 設定 範例
 
 Below is a comprehensive example of `config.json` with multiple custom providers:
 
@@ -462,9 +462,9 @@ You can create a `~/.codex/AGENTS.md` file to define custom guidance for the age
 - Only use git commands when explicitly requested
 ```
 
-### Environment variables setup
+### Environment variables 設置
 
-For each AI provider, you need to set the corresponding API key in your environment variables. For example:
+為 each AI provider, 您 need 到 set the corresponding API key 在 您的 environment variables. 為 範例:
 
 ```bash
 # OpenAI
@@ -482,12 +482,12 @@ export OPENROUTER_API_KEY="your-openrouter-key-here"
 
 ---
 
-## FAQ
+## 常見問題
 
 <details>
 <summary>OpenAI released a model called Codex in 2021 - is this related?</summary>
 
-In 2021, OpenAI released Codex, an AI system designed to generate code from natural language prompts. That original Codex model was deprecated as of March 2023 and is separate from the CLI tool.
+在 2021, OpenAI released codex, an AI system designed 到 generate code 來自 natural language prompts. 那個 original codex model was deprecated 作為 的 March 2023 和 is separate 來自 the CLI tool.
 
 </details>
 
@@ -507,7 +507,7 @@ It's possible that your [API account needs to be verified](https://help.openai.c
 <details>
 <summary>How do I stop Codex from editing my files?</summary>
 
-Codex runs model-generated commands in a sandbox. If a proposed command or file change doesn't look right, you can simply type **n** to deny the command or give the model feedback.
+codex runs model-generated commands 在 a sandbox. 如果 a proposed 指令 或 file change doesn't look right, 您 can simply type **n** 到 deny the 指令 或 give the model feedback.
 
 </details>
 <details>
@@ -531,37 +531,37 @@ You may need to upgrade to a more recent version with: `npm i -g @openai/codex@l
 
 ---
 
-## Codex open source fund
+## codex 開源基金
 
-We're excited to launch a **$1 million initiative** supporting open source projects that use Codex CLI and other OpenAI models.
+We're excited 到 launch a **$1 million initiative** supporting open source projects 那個 use codex CLI 和 other OpenAI models.
 
-- Grants are awarded up to **$25,000** API credits.
-- Applications are reviewed **on a rolling basis**.
+- Grants are awarded up 到 **$25,000** API credits.
+- Applications are reviewed **在 a rolling basis**.
 
 **Interested? [Apply here](https://openai.com/form/codex-open-source-fund/).**
 
 ---
 
-## Contributing
+## 貢獻
 
-This project is under active development and the code will likely change pretty significantly. We'll update this message once that's complete!
+這個 project is under active 開發 和 the code will likely change pretty significantly. We'll 更新 這個 message once 那個's complete!
 
-More broadly we welcome contributions - whether you are opening your very first pull request or you're a seasoned maintainer. At the same time we care about reliability and long-term maintainability, so the bar for merging code is intentionally **high**. The guidelines below spell out what "high-quality" means in practice and should make the whole process transparent and friendly.
+More broadly we welcome contributions - whether 您 are opening 您的 very first pull request 或 您're a seasoned maintainer. 在 the same time we care about reliability 和 long-term maintainability, so the bar 為 merging code is intentionally **high**. The guidelines below spell out 什麼 "high-quality" means 在 practice 和 should make the whole process transparent 和 friendly.
 
-### Development workflow
+### 開發工作流程
 
 - Create a _topic branch_ from `main` - e.g. `feat/interactive-prompt`.
-- Keep your changes focused. Multiple unrelated fixes should be opened as separate PRs.
+- Keep 您的 changes focused. Multiple unrelated fixes should be opened 作為 separate PR.
 - Use `pnpm test:watch` during development for super-fast feedback.
-- We use **Vitest** for unit tests, **ESLint** + **Prettier** for style, and **TypeScript** for type-checking.
-- Before pushing, run the full test/type/lint suite:
+- We use **Vitest** 為 unit tests, **ESLint** + **Prettier** 為 style, 和 **TypeScript** 為 type-checking.
+- Before pushing, 執行 the full 測試/type/lint suite:
 
-### Git hooks with Husky
+### git Hooks 使用 Husky
 
 This project uses [Husky](https://typicode.github.io/husky/) to enforce code quality checks:
 
-- **Pre-commit hook**: Automatically runs lint-staged to format and lint files before committing
-- **Pre-push hook**: Runs tests and type checking before pushing to the remote
+- **Pre-commit hook**: Automatically runs lint-staged 到 format 和 lint 檔案為 codex 提供額外的指示和指導 before committing
+- **Pre-push hook**: Runs tests 和 type checking before pushing 到 the remote
 
 These hooks help maintain code quality and prevent pushing code with failing tests. For more details, see [HUSKY.md](./HUSKY.md).
 
@@ -569,7 +569,7 @@ These hooks help maintain code quality and prevent pushing code with failing tes
 pnpm test && pnpm run lint && pnpm run typecheck
 ```
 
-- If you have **not** yet signed the Contributor License Agreement (CLA), add a PR comment containing the exact text
+- 如果 您 have **not** yet signed the Contributor 授權 Agreement (CLA), add a PR comment containing the exact text
 
   ```text
   I have read the CLA Document and I hereby sign the CLA
@@ -598,64 +598,64 @@ To debug the CLI with a visual debugger, do the following in the `codex-cli` fol
   - In VS Code, choose **Debug: Attach to Node Process** from the command palette and choose the option in the dropdown with debug port `9229` (likely the first option)
   - Go to <chrome://inspect> in Chrome and find **localhost:9229** and click **trace**
 
-### Writing high-impact code changes
+### 撰寫高影響力的程式碼變更
 
-1. **Start with an issue.** Open a new one or comment on an existing discussion so we can agree on the solution before code is written.
-2. **Add or update tests.** Every new feature or bug-fix should come with test coverage that fails before your change and passes afterwards. 100% coverage is not required, but aim for meaningful assertions.
+1. **Start 使用 an issue.** Open a new one 或 comment 在 an existing discussion so we can agree 在 the solution before code is written.
+2. **Add 或 更新 tests.** Every new feature 或 bug-fix should come 使用 測試 coverage 那個 fails before 您的 change 和 passes afterwards. 100% coverage is not required, but aim 為 meaningful assertions.
 3. **Document behaviour.** If your change affects user-facing behaviour, update the README, inline help (`codex --help`), or relevant example projects.
-4. **Keep commits atomic.** Each commit should compile and the tests should pass. This makes reviews and potential rollbacks easier.
+4. **Keep commits atomic.** Each commit should compile 和 the tests should pass. 這個 makes reviews 和 potential rollbacks easier.
 
-### Opening a pull request
+### 開啟拉取請求
 
-- Fill in the PR template (or include similar information) - **What? Why? How?**
+- Fill 在 the PR template (或 include similar information) - **什麼? 為什麼? 如何?**
 - Run **all** checks locally (`npm test && npm run lint && npm run typecheck`). CI failures that could have been caught locally slow down the process.
 - Make sure your branch is up-to-date with `main` and that you have resolved merge conflicts.
-- Mark the PR as **Ready for review** only when you believe it is in a merge-able state.
+- Mark the PR 作為 **Ready 為 review** only 當 您 believe 它 is 在 a merge-able state.
 
-### Review process
+### 審查流程
 
-1. One maintainer will be assigned as a primary reviewer.
-2. We may ask for changes - please do not take this personally. We value the work, we just also value consistency and long-term maintainability.
-3. When there is consensus that the PR meets the bar, a maintainer will squash-and-merge.
+1. One maintainer will be assigned 作為 a primary reviewer.
+2. We may ask 為 changes - please do not take 這個 personally. We value the work, we just also value consistency 和 long-term maintainability.
+3. 當 there is consensus 那個 the PR meets the bar, a maintainer will squash-和-merge.
 
 ### Community values
 
 - **Be kind and inclusive.** Treat others with respect; we follow the [Contributor Covenant](https://www.contributor-covenant.org/).
-- **Assume good intent.** Written communication is hard - err on the side of generosity.
-- **Teach & learn.** If you spot something confusing, open an issue or PR with improvements.
+- **Assume good intent.** Written communication is hard - err 在 the side 的 generosity.
+- **Teach & learn.** 如果 您 spot something confusing, open an issue 或 PR 使用 improvements.
 
 ### Getting help
 
-If you run into problems setting up the project, would like feedback on an idea, or just want to say _hi_ - please open a Discussion or jump into the relevant issue. We are happy to help.
+如果 您 執行 into problems setting up the project, would like feedback 在 an idea, 或 just want 到 say _hi_ - please open a Discussion 或 jump into the relevant issue. We are happy 到 help.
 
-Together we can make Codex CLI an incredible tool. **Happy hacking!** :rocket:
+Together we can make codex CLI an incredible tool. **Happy hacking!** :rocket:
 
-### Contributor license agreement (CLA)
+### Contributor 授權 agreement (CLA)
 
 All contributors **must** accept the CLA. The process is lightweight:
 
-1. Open your pull request.
+1. Open 您的 pull request.
 2. Paste the following comment (or reply `recheck` if you've signed before):
 
    ```text
    I have read the CLA Document and I hereby sign the CLA
    ```
 
-3. The CLA-Assistant bot records your signature in the repo and marks the status check as passed.
+3. The CLA-Assistant bot records 您的 signature 在 the repo 和 marks the status check 作為 passed.
 
-No special Git commands, email attachments, or commit footers required.
+No special git commands, email attachments, 或 commit footers required.
 
 #### Quick fixes
 
-| Scenario          | Command                                          |
+| Scenario          | 指令                                          |
 | ----------------- | ------------------------------------------------ |
 | Amend last commit | `git commit --amend -s --no-edit && git push -f` |
 
-The **DCO check** blocks merges until every commit in the PR carries the footer (with squash this is just the one).
+The **DCO check** blocks merges until every commit 在 the PR carries the footer (使用 squash 這個 is just the one).
 
 ### Releasing `codex`
 
-To publish a new version of the CLI you first need to stage the npm package. A
+到 publish a new version 的 the CLI 您 first need 到 stage the npm package. A
 helper script in `codex-cli/scripts/` does all the heavy lifting. Inside the
 `codex-cli` folder run:
 
@@ -672,20 +672,20 @@ pnpm stage-release --tmp "$RELEASE_DIR"
 pnpm stage-release --native
 ```
 
-Go to the folder where the release is staged and verify that it works as intended. If so, run the following from the temp folder:
+Go 到 the folder 哪裡 the release is staged 和 verify 那個 它 works 作為 intended. 如果 so, 執行 the following 來自 the temp folder:
 
 ```
 cd "$RELEASE_DIR"
 npm publish
 ```
 
-### Alternative build options
+### Alternative 建構 options
 
-#### Nix flake development
+#### Nix flake 開發
 
 Prerequisite: Nix >= 2.4 with flakes enabled (`experimental-features = nix-command flakes` in `~/.config/nix/nix.conf`).
 
-Enter a Nix development shell:
+Enter a Nix 開發 shell:
 
 ```bash
 # Use either one of the commands according to which implementation you want to work with
@@ -695,7 +695,7 @@ nix develop .#codex-rs # For entering codex-rs specific shell
 
 This shell includes Node.js, installs dependencies, builds the CLI, and provides a `codex` command alias.
 
-Build and run the CLI directly:
+建構 和 執行 the CLI directly:
 
 ```bash
 # Use either one of the commands according to which implementation you want to work with
@@ -704,7 +704,7 @@ nix build .#codex-rs # For building codex-rs
 ./result/bin/codex --help
 ```
 
-Run the CLI via the flake app:
+執行 the CLI via the flake app:
 
 ```bash
 # Use either one of the commands according to which implementation you want to work with
@@ -712,7 +712,7 @@ nix run .#codex-cli # For running codex-cli
 nix run .#codex-rs # For running codex-rs
 ```
 
-Use direnv with flakes
+Use direnv 使用 flakes
 
 If you have direnv installed, you can use the following `.envrc` to automatically enter the Nix shell when you `cd` into the project directory:
 
@@ -731,6 +731,6 @@ Have you discovered a vulnerability or have concerns about model output? Please 
 
 ---
 
-## License
+## 授權
 
 This repository is licensed under the [Apache-2.0 License](LICENSE).

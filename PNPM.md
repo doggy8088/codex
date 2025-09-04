@@ -1,17 +1,17 @@
-# Migration to pnpm
+# Migration 到 pnpm
 
-This project has been migrated from npm to pnpm to improve dependency management and developer experience.
+這個 project has been migrated 來自 npm 到 pnpm 到 improve dependency management 和 developer experience.
 
-## Why pnpm?
+## 為什麼 pnpm?
 
-- **Faster installation**: pnpm is significantly faster than npm and yarn
-- **Disk space savings**: pnpm uses a content-addressable store to avoid duplication
+- **Faster 安裝**: pnpm is significantly faster than npm 和 yarn
+- **Disk space savings**: pnpm uses a content-addressable store 到 avoid duplication
 - **Phantom dependency prevention**: pnpm creates a strict node_modules structure
 - **Native workspaces support**: simplified monorepo management
 
-## How to use pnpm
+## 如何 到 use pnpm
 
-### Installation
+### 安裝
 
 ```bash
 # Global installation of pnpm
@@ -33,7 +33,7 @@ corepack prepare pnpm@10.8.1 --activate
 
 ### Workspace-specific commands
 
-| Action                                     | Command                                  |
+| Action                                     | 指令                                     |
 | ------------------------------------------ | ---------------------------------------- |
 | Run a command in a specific package        | `pnpm --filter @openai/codex run build`  |
 | Install a dependency in a specific package | `pnpm --filter @openai/codex add lodash` |
@@ -51,20 +51,20 @@ codex/
 └── docs/                  # Documentation (future package)
 ```
 
-## Configuration files
+## 設定 檔案為 codex 提供額外的指示和指導
 
-- **pnpm-workspace.yaml**: Defines the packages included in the monorepo
+- **pnpm-workspace.yaml**: Defines the packages included 在 the monorepo
 - **.npmrc**: Configures pnpm behavior
-- **Root package.json**: Contains shared scripts and dependencies
+- **Root package.json**: Contains shared scripts 和 dependencies
 
-## CI/CD
+## CI/cd
 
 CI/CD workflows have been updated to use pnpm instead of npm. Make sure your CI environments use pnpm 10.8.1 or higher.
 
 ## Known issues
 
-If you encounter issues with pnpm, try the following solutions:
+如果 您 encounter issues 使用 pnpm, try the following solutions:
 
 1. Remove the `node_modules` folder and `pnpm-lock.yaml` file, then run `pnpm install`
-2. Make sure you're using pnpm 10.8.1 or higher
-3. Verify that Node.js 22 or higher is installed
+2. Make sure 您're using pnpm 10.8.1 或 higher
+3. Verify 那個 Node.js 22 或 higher is installed

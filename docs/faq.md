@@ -1,23 +1,23 @@
-## FAQ
+## 常見問題
 
-### OpenAI released a model called Codex in 2021 - is this related?
+### OpenAI 在 2021 年發布了一個名為 codex 的模型 - 這個工具與其相關嗎？
 
-In 2021, OpenAI released Codex, an AI system designed to generate code from natural language prompts. That original Codex model was deprecated as of March 2023 and is separate from the CLI tool.
+在 2021 年，OpenAI 發布了 codex，這是一個設計用於從自然語言提示產生程式碼的 AI 系統。那個原始的 codex 模型已於 2023 年 3 月廢棄，與此 CLI 工具是分開的。
 
-### Which models are supported?
+### 支援哪些模型？
 
-We recommend using Codex with GPT-5, our best coding model. The default reasoning level is medium, and you can upgrade to high for complex tasks with the `/model` command.
+我們建議使用 Codex 搭配 GPT-5，這是我們最好的程式編寫模型。預設推理級別為中等，您可以使用 `/model` 指令升級為高級以處理複雜任務。
 
-You can also use older models by using API-based auth and launching codex with the `--model` flag.
+您也可以透過使用基於 API 的驗證並使用 `--model` 標誌啟動 codex 來使用較舊的模型。
 
-### Why does `o3` or `o4-mini` not work for me?
+### 為什麼 `o3` 或 `o4-mini` 對我無效？
 
-It's possible that your [API account needs to be verified](https://help.openai.com/en/articles/10910291-api-organization-verification) in order to start streaming responses and seeing chain of thought summaries from the API. If you're still running into issues, please let us know!
+可能您的 [API 帳戶需要驗證](https://help.openai.com/en/articles/10910291-api-organization-verification) 才能開始串流回應並從 API 查看思考鏈摘要。如果您仍然遇到問題，請告訴我們！
 
-### How do I stop Codex from editing my files?
+### 如何阻止 codex 編輯我的檔案？
 
-By default, Codex can modify files in your current working directory (Auto mode). To prevent edits, run `codex` in read-only mode with the CLI flag `--sandbox read-only`. Alternatively, you can change the approval level mid-conversation with `/approvals`.
+預設情況下，Codex 可以修改您當前工作目錄中的檔案（自動模式）。要防止編輯，請使用 CLI 標誌 `--sandbox read-only` 在唯讀模式下執行 `codex`。或者，您可以在對話中使用 `/approvals` 變更核准級別。
 
-### Does it work on Windows?
+### 它能在 Windows 上運行嗎？
 
-Running Codex directly on Windows may work, but is not officially supported. We recommend using [Windows Subsystem for Linux (WSL2)](https://learn.microsoft.com/en-us/windows/wsl/install). 
+直接在 Windows 上執行 Codex 可能有效，但不受官方支援。我們建議使用 [Windows Subsystem for Linux (WSL2)](https://learn.microsoft.com/en-us/windows/wsl/install)。 

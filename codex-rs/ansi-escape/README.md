@@ -1,6 +1,6 @@
 # oai-codex-ansi-escape
 
-Small helper functions that wrap functionality from
+Small helper functions 那個 wrap functionality 來自
 <https://crates.io/crates/ansi-to-tui>:
 
 ```rust
@@ -12,4 +12,4 @@ Advantages:
 
 - `ansi_to_tui::IntoText` is not in scope for the entire TUI crate
 - we `panic!()` and log if `IntoText` returns an `Err` and log it so that
-  the caller does not have to deal with it
+  the caller does not have 到 deal 使用 它

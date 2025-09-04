@@ -1,4 +1,4 @@
-# Headers, primary, and secondary text
+# Headers, primary, 和 secondary text
 
 - **Headers:** Use `bold`. For markdown with various header levels, leave in the `#` signs.
 - **Primary text:** Default.

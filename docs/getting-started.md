@@ -1,68 +1,66 @@
-## Getting started
+## 開始使用
 
-### CLI usage
+### CLI 使用方式
 
-| Command            | Purpose                            | Example                         |
-| ------------------ | ---------------------------------- | ------------------------------- |
-| `codex`            | Interactive TUI                    | `codex`                         |
-| `codex "..."`      | Initial prompt for interactive TUI | `codex "fix lint errors"`       |
-| `codex exec "..."` | Non-interactive "automation mode"  | `codex exec "explain utils.ts"` |
+| 指令               | 目的                       | 範例                            |
+| ------------------ | -------------------------- | ------------------------------- |
+| `codex`            | 互動式 TUI                 | `codex`                         |
+| `codex "..."`      | 互動式 TUI 的初始提示      | `codex "修復 lint 錯誤"`        |
+| `codex exec "..."` | 非互動式「自動化模式」     | `codex exec "解釋 utils.ts"`    |
 
-Key flags: `--model/-m`, `--ask-for-approval/-a`.
+關鍵標誌：`--model/-m`、`--ask-for-approval/-a`。
 
-Resume options:
+恢復選項：
 
-- `--resume`: open an interactive picker of recent sessions (shows a preview of the first real user message). Conflicts with `--continue`.
-- `--continue`: resume the most recent session without showing the picker (falls back to starting fresh if none exist). Conflicts with `--resume`.
+- `--resume`：開啟最近對話的互動式選擇器（顯示第一個真實使用者訊息的預覽）。與 `--continue` 衝突。
+- `--continue`：恢復最近的對話而不顯示選擇器（如果不存在則回退到重新開始）。與 `--resume` 衝突。
 
-Examples:
+範例：
 
 ```shell
 codex --resume
 codex --continue
 ```
 
-### Running with a prompt as input
+### 以提示作為輸入運行
 
-You can also run Codex CLI with a prompt as input:
+您也可以使用提示作為輸入來運行 Codex CLI：
 
 ```shell
-codex "explain this codebase to me"
+codex "向我解釋這個程式碼庫"
 ```
 
 ```shell
-codex --full-auto "create the fanciest todo-list app"
+codex --full-auto "建立最精美的待辦事項應用程式"
 ```
 
-That's it - Codex will scaffold a file, run it inside a sandbox, install any
-missing dependencies, and show you the live result. Approve the changes and
-they'll be committed to your working directory.
+就是這樣 - Codex 將建構檔案、在沙盒中運行、安裝任何遺漏的相依項目，並顯示實時結果。核准變更後，它們將提交到您的工作目錄。
 
-### Example prompts
+### 範例提示
 
-Below are a few bite-size examples you can copy-paste. Replace the text in quotes with your own task. See the [prompting guide](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md) for more tips and usage patterns.
+以下是一些您可以複製貼上的簡短範例。將引號中的文字替換為您自己的任務。更多技巧和使用模式請參閱 [提示指南](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md)。
 
-| ✨  | What you type                                                                   | What happens                                                               |
-| --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 1   | `codex "Refactor the Dashboard component to React Hooks"`                       | Codex rewrites the class component, runs `npm test`, and shows the diff.   |
-| 2   | `codex "Generate SQL migrations for adding a users table"`                      | Infers your ORM, creates migration files, and runs them in a sandboxed DB. |
-| 3   | `codex "Write unit tests for utils/date.ts"`                                    | Generates tests, executes them, and iterates until they pass.              |
-| 4   | `codex "Bulk-rename *.jpeg -> *.jpg with git mv"`                               | Safely renames files and updates imports/usages.                           |
-| 5   | `codex "Explain what this regex does: ^(?=.*[A-Z]).{8,}$"`                      | Outputs a step-by-step human explanation.                                  |
-| 6   | `codex "Carefully review this repo, and propose 3 high impact well-scoped PRs"` | Suggests impactful PRs in the current codebase.                            |
-| 7   | `codex "Look for vulnerabilities and create a security review report"`          | Finds and explains security bugs.                                          |
+| ✨  | 您輸入的內容                                                                   | 會發生什麼                                                                 |
+| --- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| 1   | `codex "將 Dashboard 元件重構為 React Hooks"`                                 | Codex 重寫類別元件、執行 `npm test` 並顯示差異。                          |
+| 2   | `codex "產生新增使用者表的 SQL 遷移"`                                          | 推斷您的 ORM、建立遷移檔案，並在沙盒資料庫中執行它們。                    |
+| 3   | `codex "為 utils/date.ts 撰寫單元測試"`                                        | 產生測試、執行它們，並迭代直到通過。                                      |
+| 4   | `codex "使用 git mv 批量重新命名 *.jpeg -> *.jpg"`                            | 安全地重新命名檔案並更新匯入/使用。                                        |
+| 5   | `codex "解釋這個正規表達式的作用：^(?=.*[A-Z]).{8,}$"`                        | 輸出逐步的人類解釋。                                                      |
+| 6   | `codex "仔細審查這個儲存庫，並提議 3 個高影響力且範圍明確的 PR"`              | 在當前程式碼庫中建議有影響力的 PR。                                       |
+| 7   | `codex "尋找漏洞並建立安全審查報告"`                                          | 找出並解釋安全漏洞。                                                      |
 
-### Memory with AGENTS.md
+### 使用 AGENTS.md 進行記憶
 
-You can give Codex extra instructions and guidance using `AGENTS.md` files. Codex looks for `AGENTS.md` files in the following places, and merges them top-down:
+您可以使用 `AGENTS.md` 檔案為 Codex 提供額外的指示和指導。Codex 會在以下位置尋找 `AGENTS.md` 檔案，並由上而下合併它們：
 
-1. `~/.codex/AGENTS.md` - personal global guidance
-2. `AGENTS.md` at repo root - shared project notes
-3. `AGENTS.md` in the current working directory - sub-folder/feature specifics
+1. `~/.codex/AGENTS.md` - 個人全域指導
+2. 儲存庫根目錄的 `AGENTS.md` - 共享專案說明
+3. 當前工作目錄中的 `AGENTS.md` - 子資料夾/功能特定內容
 
-For more information on how to use AGENTS.md, see the [official AGENTS.md documentation](https://agents.md/).
+有關如何使用 AGENTS.md 的更多資訊，請參閱 [AGENTS.md 官方文件](https://agents.md/)。
 
-### Tips & shortcuts
+### 技巧與快捷鍵
 
 #### Use `@` for file search
 

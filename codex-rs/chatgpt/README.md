@@ -1,5 +1,5 @@
 # ChatGPT
 
-This crate pertains to first party ChatGPT APIs and products such as Codex agent.
+這個 crate pertains 到 first party ChatGPT APIs 和 products such 作為 codex agent.
 
-This crate should be primarily built and maintained by OpenAI employees. Please reach out to a maintainer before making an external contribution.
+這個 crate should be primarily built 和 maintained 透過 OpenAI employees. Please reach out 到 a maintainer before making an external contribution.
