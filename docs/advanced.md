@@ -2,7 +2,7 @@
 
 ## 非互動式 / CI 模式
 
-執行 codex head-less 在 pipelines. 範例 GitHub Action step:
+在管道中運行無頭 codex。範例 GitHub Action 步驟：
 
 ```yaml
 - name: Update changelog via Codex

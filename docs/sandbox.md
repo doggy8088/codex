@@ -8,18 +8,18 @@ When you just want to chat, or if you want to plan before diving in, you can swi
 
 If you need Codex to read files, make edits, and run commands with network access, without approval, you can use `Full Access`. Exercise caution before doing so.
 
-#### Defaults 和 recommendations
+#### 預設值和建議
 
-- codex runs 在 a sandbox 透過 default 使用 strong guardrails: 它 prevents editing 檔案為 codex 提供額外的指示和指導 outside the workspace 和 blocks network access unless enabled.
-- 在 launch, codex detects whether the folder is version-controlled 和 recommends:
-  - Version-controlled folders: `Auto` (workspace write + on-request approvals)
-  - Non-version-controlled folders: `Read Only`
-- The workspace includes the current directory and temporary directories like `/tmp`. Use the `/status` command to see which directories are in the workspace.
-- 您 can set 這些 explicitly:
+- codex 預設在沙盒中運行，具有強大的防護機制：它防止編輯工作區外的檔案並阻止網路存取，除非啟用。
+- 在啟動時，codex 偵測資料夾是否有版本控制並推薦：
+  - 版本控制資料夾：`Auto`（工作區寫入 + 按需核准）
+  - 非版本控制資料夾：`Read Only`
+- 工作區包括當前目錄和臨時目錄如 `/tmp`。使用 `/status` 指令查看哪些目錄在工作區中。
+- 您可以明確設定這些：
   - `codex --sandbox workspace-write --ask-for-approval on-request`
   - `codex --sandbox read-only --ask-for-approval on-request`
 
-### Can I 執行 without ANY approvals?
+### 我可以在沒有任何核准的情況下執行嗎？
 
 Yes, you can disable all approval prompts with `--ask-for-approval never`. This option works with all `--sandbox` modes, so you still have full control over Codex's level of autonomy. It will make its best attempt with whatever contrainsts you provide.
 
