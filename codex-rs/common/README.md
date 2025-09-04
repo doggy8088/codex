@@ -1,5 +1,5 @@
 # codex-common
 
-This crate is designed for utilities that need to be shared across other crates in the workspace, but should not go in `core`.
+此 crate 用於放置需在整個工作區多個 crate 間共用、但不適合放在 `core` 的工具程式。
 
-For narrow utility features, the pattern is to add introduce a new feature under `[features]` in `Cargo.toml` and then gate it with `#[cfg]` in `lib.rs`, as appropriate.
+對於較小範圍的工具功能，建議做法是在 `Cargo.toml` 的 `[features]` 新增 feature，並視情況在 `lib.rs` 以 `#[cfg]` 控制其啟用。

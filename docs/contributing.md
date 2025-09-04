@@ -1,94 +1,94 @@
-## Contributing
+## 貢獻指南
 
-This project is under active development and the code will likely change pretty significantly.
+本專案正持續開發中，程式碼未來可能會有大幅更動。
 
-**At the moment, we only plan to prioritize reviewing external contributions for bugs or security fixes.**
+**目前我們優先審查外部貢獻中的錯誤修正與安全性修補。**
 
-If you want to add a new feature or change the behavior of an existing one, please open an issue proposing the feature and get approval from an OpenAI team member before spending time building it.
+若您想新增功能或變更現有行為，請先開 Issue 提案，並在投入開發前取得 OpenAI 成員的核可。
 
-**New contributions that don't go through this process may be closed** if they aren't aligned with our current roadmap or conflict with other priorities/upcoming features.
+**未依此流程提出的貢獻可能會被關閉**，若其與目前的路線圖不符，或與其他優先事項/即將推出的功能衝突。
 
-### Development workflow
+### 開發流程
 
-- Create a _topic branch_ from `main` - e.g. `feat/interactive-prompt`.
-- Keep your changes focused. Multiple unrelated fixes should be opened as separate PRs.
-- Following the [development setup](#development-workflow) instructions above, ensure your change is free of lint warnings and test failures.
+- 由 `main` 建立「主題分支」——例如 `feat/interactive-prompt`。
+- 專注於單一主題。多個不相關的修正應分開提 PR。
+- 依照上方［<a href="#development-workflow">開發設定</a>］說明，確保您的變更沒有 lint 警告且測試通過。
 
-### Writing high-impact code changes
+### 撰寫高影響力的程式碼變更
 
-1. **Start with an issue.** Open a new one or comment on an existing discussion so we can agree on the solution before code is written.
-2. **Add or update tests.** Every new feature or bug-fix should come with test coverage that fails before your change and passes afterwards. 100% coverage is not required, but aim for meaningful assertions.
-3. **Document behaviour.** If your change affects user-facing behaviour, update the README, inline help (`codex --help`), or relevant example projects.
-4. **Keep commits atomic.** Each commit should compile and the tests should pass. This makes reviews and potential rollbacks easier.
+1. **從 Issue 開始。** 新開或回覆既有討論，以便在動手寫碼前就解法達成共識。
+2. **新增或更新測試。** 每項新功能或錯誤修正都應有對應測試：在變更前失敗、變更後通過。不需 100% 覆蓋率，但需具備有意義的斷言。
+3. **撰寫行為文件。** 若變更影響使用者可見的行為，請更新 README、行內說明（`codex --help`）或相關範例專案。
+4. **保持提交原子性。** 每個提交都應可編譯且測試通過，方便審查與回滾。
 
-### Opening a pull request
+### 建立 Pull Request
 
-- Fill in the PR template (or include similar information) - **What? Why? How?**
-- Run **all** checks locally (`cargo test && cargo clippy --tests && cargo fmt -- --config imports_granularity=Item`). CI failures that could have been caught locally slow down the process.
-- Make sure your branch is up-to-date with `main` and that you have resolved merge conflicts.
-- Mark the PR as **Ready for review** only when you believe it is in a merge-able state.
+- 完整填寫 PR 範本（或提供同等資訊）——**做了什麼？為什麼？怎麼做？**
+- 在本機執行「所有」檢查（`cargo test && cargo clippy --tests && cargo fmt -- --config imports_granularity=Item`）。能在本機發現的 CI 失敗若拖到遠端，會延誤時程。
+- 確保您的分支已與 `main` 同步，並解決所有衝突。
+- 只有當您認為可合併時，才將 PR 標記為 **Ready for review**。
 
-### Review process
+### 審查流程
 
-1. One maintainer will be assigned as a primary reviewer.
-2. If your PR adds a new feature that was not previously discussed and approved, we may choose to close your PR (see [Contributing](#contributing)).
-3. We may ask for changes - please do not take this personally. We value the work, but we also value consistency and long-term maintainability.
-5. When there is consensus that the PR meets the bar, a maintainer will squash-and-merge.
+1. 會有一位維護者擔任主要審查者。
+2. 若 PR 新增了未事先討論並核可的新功能，我們可能會關閉該 PR（見［<a href="#contributing">貢獻指南</a>］）。
+3. 我們可能會要求修改——請別介意。我們重視您的貢獻，同時也重視一致性與長期可維護性。
+5. 當多方同意 PR 達到標準後，維護者會以 squash-and-merge 合併。
 
-### Community values
+### 社群價值
 
-- **Be kind and inclusive.** Treat others with respect; we follow the [Contributor Covenant](https://www.contributor-covenant.org/).
-- **Assume good intent.** Written communication is hard - err on the side of generosity.
-- **Teach & learn.** If you spot something confusing, open an issue or PR with improvements.
+- **友善與包容。** 尊重他人；我們遵循 [Contributor Covenant](https://www.contributor-covenant.org/)。
+- **善意假設。** 書面溝通不易——請傾向寬厚以對。
+- **教學相長。** 若發現令人困惑的部分，歡迎開 Issue 或 PR 改善。
 
-### Getting help
+### 取得協助
 
-If you run into problems setting up the project, would like feedback on an idea, or just want to say _hi_ - please open a Discussion or jump into the relevant issue. We are happy to help.
+若您在設定專案時遇到問題、想為點子徵求回饋，或只是打聲招呼，請開啟 Discussion 或參與相關 Issue。我們樂於協助。
 
-Together we can make Codex CLI an incredible tool. **Happy hacking!** :rocket:
+讓我們一起打造更出色的 Codex CLI。**玩得開心！** :rocket:
 
-### Contributor license agreement (CLA)
+### 貢獻者授權協議（CLA）
 
-All contributors **must** accept the CLA. The process is lightweight:
+所有貢獻者**必須**接受 CLA。流程相當輕量：
 
-1. Open your pull request.
-2. Paste the following comment (or reply `recheck` if you've signed before):
+1. 開啟您的 PR。
+2. 貼上以下留言（若之前簽署過，回覆 `recheck`）：
 
    ```text
    I have read the CLA Document and I hereby sign the CLA
    ```
 
-3. The CLA-Assistant bot records your signature in the repo and marks the status check as passed.
+3. CLA-Assistant 機器人會在儲存庫記錄您的簽署，並標記狀態檢查為通過。
 
-No special Git commands, email attachments, or commit footers required.
+無需特別的 Git 指令、電子郵件附件或提交頁尾。
 
-#### Quick fixes
+#### 快速修正
 
-| Scenario          | Command                                          |
+| 情境               | 指令                                             |
 | ----------------- | ------------------------------------------------ |
-| Amend last commit | `git commit --amend -s --no-edit && git push -f` |
+| 修正上一筆提交     | `git commit --amend -s --no-edit && git push -f` |
 
-The **DCO check** blocks merges until every commit in the PR carries the footer (with squash this is just the one).
+在每筆提交都帶有頁尾之前（squash 時只需最後一筆），**DCO 檢查**會阻擋合併。
 
-### Releasing `codex`
+### 發佈 `codex`
 
-_For admins only._
+（僅限管理者）
 
-Make sure you are on `main` and have no local changes. Then run:
+請確認目前位於 `main` 且沒有本機變更，然後執行：
 
 ```shell
-VERSION=0.2.0  # Can also be 0.2.0-alpha.1 or any valid Rust version.
+VERSION=0.2.0  # 也可以是 0.2.0-alpha.1 或任何有效的 Rust 版本字串。
 ./codex-rs/scripts/create_github_release.sh "$VERSION"
 ```
 
-This will make a local commit on top of `main` with `version` set to `$VERSION` in `codex-rs/Cargo.toml` (note that on `main`, we leave the version as `version = "0.0.0"`).
+這會在 `main` 之上建立一個本機提交，將 `codex-rs/Cargo.toml` 裡的 `version` 設為 `$VERSION`（注意在 `main` 分支上，我們維持 `version = "0.0.0"`）。
 
-This will push the commit using the tag `rust-v${VERSION}`, which in turn kicks off [the release workflow](../.github/workflows/rust-release.yml). This will create a new GitHub Release named `$VERSION`.
+接著會以 `rust-v${VERSION}` 標籤推送該提交，並觸發［<a href="../.github/workflows/rust-release.yml">發佈工作流程</a>］，建立名為 `$VERSION` 的 GitHub Release。
 
-If everything looks good in the generated GitHub Release, uncheck the **pre-release** box so it is the latest release.
+若自動產生的 GitHub Release 一切正常，請取消勾選 **pre-release**，讓它成為最新版本。
 
-Create a PR to update [`Formula/c/codex.rb`](https://github.com/Homebrew/homebrew-core/blob/main/Formula/c/codex.rb) on Homebrew.
+建立 PR 以更新 Homebrew 上的 [`Formula/c/codex.rb`](https://github.com/Homebrew/homebrew-core/blob/main/Formula/c/codex.rb)。
 
-### Security & responsible AI
+### 安全與負責任的 AI
 
-Have you discovered a vulnerability or have concerns about model output? Please e-mail **security@openai.com** and we will respond promptly. 
+若您發現任何漏洞或對模型輸出有所疑慮，請寄信至 **security@openai.com**，我們會儘速回覆。

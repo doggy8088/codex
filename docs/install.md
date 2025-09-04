@@ -1,40 +1,40 @@
-## Install & build
+## 安裝與建構
 
-### System requirements
+### 系統需求
 
-| Requirement                 | Details                                                         |
+| 需求                         | 說明                                                            |
 | --------------------------- | --------------------------------------------------------------- |
-| Operating systems           | macOS 12+, Ubuntu 20.04+/Debian 10+, or Windows 11 **via WSL2** |
-| Git (optional, recommended) | 2.23+ for built-in PR helpers                                   |
-| RAM                         | 4-GB minimum (8-GB recommended)                                 |
+| 作業系統                    | macOS 12+、Ubuntu 20.04+/Debian 10+，或透過 WSL2 的 Windows 11    |
+| Git（選用，建議）           | 2.23+，以使用內建 PR 協助功能                                     |
+| 記憶體                      | 至少 4 GB（建議 8 GB）                                           |
 
 ### DotSlash
 
-The GitHub Release also contains a [DotSlash](https://dotslash-cli.com/) file for the Codex CLI named `codex`. Using a DotSlash file makes it possible to make a lightweight commit to source control to ensure all contributors use the same version of an executable, regardless of what platform they use for development.
+GitHub Release 也包含一個名為 `codex` 的 [DotSlash](https://dotslash-cli.com/) 檔案。使用 DotSlash 可在版本控制中進行輕量提交，確保所有貢獻者在各自平台上都使用相同版本的可執行檔。
 
-### Build from source
+### 從原始碼建構
 
 ```bash
-# Clone the repository and navigate to the root of the Cargo workspace.
+# 複製儲存庫並切換到 Cargo 工作區根目錄。
 git clone https://github.com/openai/codex.git
 cd codex/codex-rs
 
-# Install the Rust toolchain, if necessary.
+# 如有需要，安裝 Rust 工具鏈。
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 rustup component add rustfmt
 rustup component add clippy
 
-# Build Codex.
+# 建構 Codex。
 cargo build
 
-# Launch the TUI with a sample prompt.
+# 以示例提示啟動 TUI。
 cargo run --bin codex -- "explain this codebase to me"
 
-# After making changes, ensure the code is clean.
+# 變更後請確保程式碼乾淨。
 cargo fmt -- --config imports_granularity=Item
 cargo clippy --tests
 
-# Run the tests.
+# 執行測試。
 cargo test
 ``` 

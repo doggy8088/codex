@@ -1,8 +1,8 @@
-### Platform sandboxing details
+### 各平台沙盒機制細節
 
-The mechanism Codex uses to implement the sandbox policy depends on your OS:
+Codex 採用的沙盒機制取決於您的作業系統：
 
-- **macOS 12+** uses **Apple Seatbelt** and runs commands using `sandbox-exec` with a profile (`-p`) that corresponds to the `--sandbox` that was specified.
-- **Linux** uses a combination of Landlock/seccomp APIs to enforce the `sandbox` configuration.
+- **macOS 12+**：使用 **Apple Seatbelt**，並透過 `sandbox-exec` 及對應 `--sandbox` 的設定檔（`-p`）執行指令。
+- **Linux**：使用 Landlock/seccomp API 的組合來強制執行 `sandbox` 組態。
 
-Note that when running Linux in a containerized environment such as Docker, sandboxing may not work if the host/container configuration does not support the necessary Landlock/seccomp APIs. In such cases, we recommend configuring your Docker container so that it provides the sandbox guarantees you are looking for and then running `codex` with `--sandbox danger-full-access` (or, more simply, the `--dangerously-bypass-approvals-and-sandbox` flag) within your container. 
+請注意：在 Docker 等容器化環境執行 Linux 時，若主機/容器的設定不支援必要的 Landlock/seccomp API，沙盒可能無法運作。此時建議您先將 Docker 容器設定為能提供所需的沙盒保障，再於容器內使用 `--sandbox danger-full-access`（或更簡單地使用 `--dangerously-bypass-approvals-and-sandbox` 旗標）執行 `codex`。

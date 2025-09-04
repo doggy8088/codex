@@ -1,3 +1,3 @@
-## License
+## 授權
 
-This repository is licensed under the [Apache-2.0 License](../LICENSE). 
+此儲存庫採用［<a href="../LICENSE">Apache-2.0 授權條款</a>］。 

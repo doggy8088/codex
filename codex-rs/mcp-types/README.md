@@ -1,8 +1,8 @@
 # mcp-types
 
-Types for Model Context Protocol. Inspired by https://crates.io/crates/lsp-types.
+Model Context Protocol 的型別定義。靈感來自 https://crates.io/crates/lsp-types。
 
-As documented on https://modelcontextprotocol.io/specification/2025-06-18/basic:
+如 https://modelcontextprotocol.io/specification/2025-06-18/basic 所述：
 
-- TypeScript schema is the source of truth: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2025-06-18/schema.ts
-- JSON schema is amenable to automated tooling: https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2025-06-18/schema.json
+- TypeScript 綱要為權威來源：https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2025-06-18/schema.ts
+- JSON 綱要利於自動化工具處理：https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/schema/2025-06-18/schema.json

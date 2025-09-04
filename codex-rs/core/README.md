@@ -1,19 +1,19 @@
 # codex-core
 
-This crate implements the business logic for Codex. It is designed to be used by the various Codex UIs written in Rust.
+此 crate 實作 Codex 的商業邏輯，供各種以 Rust 撰寫的 Codex UI 使用。
 
-## Dependencies
+## 相依項目
 
-Note that `codex-core` makes some assumptions about certain helper utilities being available in the environment. Currently, this
+請注意：`codex-core` 假設執行環境中具備某些輔助工具。目前包含：
 
 ### macOS
 
-Expects `/usr/bin/sandbox-exec` to be present.
+需存在 `/usr/bin/sandbox-exec`。
 
 ### Linux
 
-Expects the binary containing `codex-core` to run the equivalent of `codex debug landlock` when `arg0` is `codex-linux-sandbox`. See the `codex-arg0` crate for details.
+當 `arg0` 為 `codex-linux-sandbox` 時，包含 `codex-core` 的可執行檔需執行等同於 `codex debug landlock` 的動作。詳情請見 `codex-arg0` crate。
 
-### All Platforms
+### 所有平台
 
-Expects the binary containing `codex-core` to simulate the virtual `apply_patch` CLI when `arg1` is `--codex-run-as-apply-patch`. See the `codex-arg0` crate for details.
+當 `arg1` 為 `--codex-run-as-apply-patch` 時，包含 `codex-core` 的可執行檔需模擬虛擬的 `apply_patch` CLI。詳情請見 `codex-arg0` crate。

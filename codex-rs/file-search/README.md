@@ -1,5 +1,5 @@
 # codex_file_search
 
-Fast fuzzy file search tool for Codex.
+Codex 的快速模糊檔案搜尋工具。
 
-Uses <https://crates.io/crates/ignore> under the hood (which is what `ripgrep` uses) to traverse a directory (while honoring `.gitignore`, etc.) to produce the list of files to search and then uses <https://crates.io/crates/nucleo-matcher> to fuzzy-match the user supplied `PATTERN` against the corpus.
+底層使用 <https://crates.io/crates/ignore>（`ripgrep` 採用的函式庫）遍歷目錄（遵循 `.gitignore` 等規則）以產生可搜尋的檔案清單，接著以 <https://crates.io/crates/nucleo-matcher> 對使用者提供的 `PATTERN` 進行模糊比對。

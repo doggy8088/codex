@@ -1,44 +1,28 @@
-# Individual Contributor License Agreement (v1.0, OpenAI)
+# 個人貢獻者授權協議（v1.0，OpenAI）
 
-_Based on the Apache Software Foundation Individual CLA v 2.2._
+（改寫自 Apache Software Foundation 的 Individual CLA v2.2）
 
-By commenting **“I have read the CLA Document and I hereby sign the CLA”**
-on a Pull Request, **you (“Contributor”) agree to the following terms** for any
-past and future “Contributions” submitted to the **OpenAI Codex CLI project
-(the “Project”)**.
+當您在 Pull Request 留下「**I have read the CLA Document and I hereby sign the CLA**」之留言時，**即表示您（「貢獻者」）同意以下條款**，此條款適用於您已提交與未來提交至 **OpenAI Codex CLI 專案（下稱「本專案」）** 的所有「貢獻」。
 
 ---
 
-## 1. Definitions
-- **“Contribution”** – any original work of authorship submitted to the Project
-  (code, documentation, designs, etc.).
-- **“You” / “Your”** – the individual (or legal entity) posting the acceptance
-  comment.
+## 1. 定義
+- **「貢獻（Contribution）」**——提交至本專案的任何原創著作（程式碼、文件、設計等）。
+- **「您/您的（You/Your）」**——貼上接受聲明之個人（或法人）。
 
-## 2. Copyright License  
-You grant **OpenAI, Inc.** and all recipients of software distributed by the
-Project a perpetual, worldwide, non‑exclusive, royalty‑free, irrevocable
-license to reproduce, prepare derivative works of, publicly display, publicly
-perform, sublicense, and distribute Your Contributions and derivative works.
+## 2. 版權授權
+您授予 **OpenAI, Inc.** 與本專案之軟體接收者一個永久、全球性、非獨占、免權利金、不可撤銷之授權，以重製、製作衍生作品、公開展示、公開演出、再授權與散布您的貢獻及其衍生作品。
 
-## 3. Patent License  
-You grant **OpenAI, Inc.** and all recipients of the Project a perpetual,
-worldwide, non‑exclusive, royalty‑free, irrevocable (except as below) patent
-license to make, have made, use, sell, offer to sell, import, and otherwise
-transfer Your Contributions alone or in combination with the Project.
+## 3. 專利授權
+您授予 **OpenAI, Inc.** 與本專案之接收者一個永久、全球性、非獨占、免權利金、不可撤銷（除下述情形外）的專利授權，以製作、委託製作、使用、販售、要約販售、輸入，或以其他方式移轉您的貢獻，無論獨立或與本專案合併使用。
 
-If any entity brings patent litigation alleging that the Project or a
-Contribution infringes a patent, the patent licenses granted by You to that
-entity under this CLA terminate.
+若任何實體就本專案或任一貢獻主張專利侵權而提起訴訟，您在本 CLA 下授與該實體的專利授權將終止。
 
-## 4. Representations
-1. You are legally entitled to grant the licenses above.  
-2. Each Contribution is either Your original creation or You have authority to
-   submit it under this CLA.  
-3. Your Contributions are provided **“AS IS”** without warranties of any kind.  
-4. You will notify the Project if any statement above becomes inaccurate.
+## 4. 聲明
+1. 您在法律上有權授與上述授權。
+2. 每項貢獻均為您的原創，或您已取得在本 CLA 下提交之權限。
+3. 您的貢獻係以**「現狀提供」**，不附任何形式之保證。
+4. 若上述任一聲明不再正確，您將通知本專案。
 
-## 5. Miscellany  
-This Agreement is governed by the laws of the **State of California**, USA,
-excluding its conflict‑of‑laws rules. If any provision is held unenforceable,
-the remaining provisions remain in force.
+## 5. 其他
+本協議受美國**加州**法律管轄，不包括其法律衝突規則。若本協議任何條款被認定不可執行，其餘條款仍繼續有效。

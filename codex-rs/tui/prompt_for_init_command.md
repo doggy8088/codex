@@ -1,40 +1,40 @@
-Generate a file named AGENTS.md that serves as a contributor guide for this repository.
-Your goal is to produce a clear, concise, and well-structured document with descriptive headings and actionable explanations for each section.
-Follow the outline below, but adapt as needed — add sections if relevant, and omit those that do not apply to this project.
+產生一個名為 AGENTS.md 的檔案，作為本儲存庫的貢獻者指南。
+目標是撰寫一份清楚、精煉且架構良好的文件，包含具描述性的標題，以及每個章節可據以行動的說明。
+請依下列大綱撰寫，並可視需要調整——若有相關內容可自行新增章節，與本專案無關的章節可省略。
 
-Document Requirements
+文件需求
 
-- Title the document "Repository Guidelines".
-- Use Markdown headings (#, ##, etc.) for structure.
-- Keep the document concise. 200-400 words is optimal.
-- Keep explanations short, direct, and specific to this repository.
-- Provide examples where helpful (commands, directory paths, naming patterns).
-- Maintain a professional, instructional tone.
+- 將標題定為「Repository Guidelines」。
+- 使用 Markdown 標題（#、## 等）組織架構。
+- 內容保持精煉，200–400 字最佳。
+- 說明務必簡潔、直接，且與本儲存庫密切相關。
+- 適當提供範例（指令、目錄路徑、命名規則）。
+- 維持專業、教學式語氣。
 
-Recommended Sections
+建議章節
 
-Project Structure & Module Organization
+專案結構與模組組織
 
-- Outline the project structure, including where the source code, tests, and assets are located.
+- 概述專案結構，包含原始碼、測試與資產的所在位置。
 
-Build, Test, and Development Commands
+建置、測試與開發指令
 
-- List key commands for building, testing, and running locally (e.g., npm test, make build).
-- Briefly explain what each command does.
+- 列出本機建置、測試與執行的關鍵指令（例如 npm test、make build）。
+- 簡要說明各指令的用途。
 
-Coding Style & Naming Conventions
+程式風格與命名規範
 
-- Specify indentation rules, language-specific style preferences, and naming patterns.
-- Include any formatting or linting tools used.
+- 指定縮排規則、語言偏好的風格與命名模式。
+- 說明使用的格式化與靜態檢查工具。
 
-Testing Guidelines
+測試準則
 
-- Identify testing frameworks and coverage requirements.
-- State test naming conventions and how to run tests.
+- 指定測試框架與覆蓋率要求。
+- 說明測試命名規則與執行方式。
 
-Commit & Pull Request Guidelines
+Commit 與 Pull Request 準則
 
-- Summarize commit message conventions found in the project’s Git history.
-- Outline pull request requirements (descriptions, linked issues, screenshots, etc.).
+- 總結專案 Git 歷史中所使用的提交訊息慣例。
+- 說明 PR 的需求（描述、關聯 Issue、截圖等）。
 
-(Optional) Add other sections if relevant, such as Security & Configuration Tips, Architecture Overview, or Agent-Specific Instructions.
+（選用）若有需要，可新增其他章節，例如安全與設定提示、架構概觀，或代理特定說明。

@@ -1,61 +1,61 @@
-# Codex CLI (Rust Implementation)
+# Codex CLI（Rust 實作）
 
-We provide Codex CLI as a standalone, native executable to ensure a zero-dependency install.
+我們以獨立的原生可執行檔提供 Codex CLI，確保安裝零相依。
 
-## Installing Codex
+## 安裝 Codex
 
-Today, the easiest way to install Codex is via `npm`, though we plan to publish Codex to other package managers soon.
+目前安裝 Codex 最簡單的方式是透過 `npm`，未來我們也會發佈到更多套件管理器。
 
 ```shell
 npm i -g @openai/codex@native
 codex
 ```
 
-You can also download a platform-specific release directly from our [GitHub Releases](https://github.com/openai/codex/releases).
+您也可以直接從［<a href="https://github.com/openai/codex/releases">GitHub Releases</a>］下載對應您平台的版本。
 
-## What's new in the Rust CLI
+## Rust 版 CLI 的新功能
 
-While we are [working to close the gap between the TypeScript and Rust implementations of Codex CLI](https://github.com/openai/codex/issues/1262), note that the Rust CLI has a number of features that the TypeScript CLI does not!
+我們正[致力於縮小 TypeScript 與 Rust 兩個 Codex CLI 實作之間的差距](https://github.com/openai/codex/issues/1262)，同時也請注意 Rust 版 CLI 具備 TypeScript 版所沒有的多項功能！
 
-### Config
+### 設定
 
-Codex supports a rich set of configuration options. Note that the Rust CLI uses `config.toml` instead of `config.json`. See [`docs/config.md`](../docs/config.md) for details.
+Codex 支援豐富的設定選項。請注意 Rust 版 CLI 使用 `config.toml`（而非 `config.json`）。詳細請見［<a href="../docs/config.md">`docs/config.md`</a>］。
 
-### Model Context Protocol Support
+### Model Context Protocol 支援
 
-Codex CLI functions as an MCP client that can connect to MCP servers on startup. See the [`mcp_servers`](../docs/config.md#mcp_servers) section in the configuration documentation for details.
+Codex CLI 可作為 MCP 用戶端，啟動時連線到 MCP 伺服器。詳見組態文件中的［<a href="../docs/config.md#mcp_servers">`mcp_servers`</a>］章節。
 
-It is still experimental, but you can also launch Codex as an MCP _server_ by running `codex mcp`. Use the [`@modelcontextprotocol/inspector`](https://github.com/modelcontextprotocol/inspector) to try it out:
+此外雖仍屬實驗性質，但您也可以執行 `codex mcp` 將 Codex 以 MCP「伺服器」身分啟動。可搭配［<a href="https://github.com/modelcontextprotocol/inspector">`@modelcontextprotocol/inspector`</a>］試用：
 
 ```shell
 npx @modelcontextprotocol/inspector codex mcp
 ```
 
-### Notifications
+### 通知
 
-You can enable notifications by configuring a script that is run whenever the agent finishes a turn. The [notify documentation](../docs/config.md#notify) includes a detailed example that explains how to get desktop notifications via [terminal-notifier](https://github.com/julienXX/terminal-notifier) on macOS.
+您可以設定在代理完成一回合時執行的腳本，以啟用通知。請見［<a href="../docs/config.md#notify">通知文件</a>］，其中包含如何透過 macOS 上的 [terminal-notifier](https://github.com/julienXX/terminal-notifier) 取得桌面通知的詳細範例。
 
-### `codex exec` to run Codex programmatially/non-interactively
+### 使用 `codex exec` 以程式化／非互動方式執行 Codex
 
-To run Codex non-interactively, run `codex exec PROMPT` (you can also pass the prompt via `stdin`) and Codex will work on your task until it decides that it is done and exits. Output is printed to the terminal directly. You can set the `RUST_LOG` environment variable to see more about what's going on.
+若要以非互動方式執行，請運行 `codex exec PROMPT`（也可透過 `stdin` 傳入提示）。Codex 會持續處理您的任務，直到判定完成並結束。輸出會直接列印到終端機；您可設定 `RUST_LOG` 環境變數以查看更詳細的運作情形。
 
-### Use `@` for file search
+### 使用 `@` 進行檔案搜尋
 
-Typing `@` triggers a fuzzy-filename search over the workspace root. Use up/down to select among the results and Tab or Enter to replace the `@` with the selected path. You can use Esc to cancel the search.
+輸入 `@` 會在工作區根目錄觸發模糊檔名搜尋。使用上下鍵選擇結果，按 Tab 或 Enter 以所選路徑取代 `@`。按 Esc 可取消搜尋。
 
-### Esc–Esc to edit a previous message
+### 連按 Esc 編輯上一則訊息
 
-When the chat composer is empty, press Esc to prime “backtrack” mode. Press Esc again to open a transcript preview highlighting the last user message; press Esc repeatedly to step to older user messages. Press Enter to confirm and Codex will fork the conversation from that point, trim the visible transcript accordingly, and pre‑fill the composer with the selected user message so you can edit and resubmit it.
+當輸入區為空時，按 Esc 以啟動「回溯」模式。再按一次 Esc 會開啟對話稿預覽並反白最後一則使用者訊息；重複按 Esc 可逐步回到更早的訊息。按 Enter 確認後，Codex 會自該處分叉對話、相應裁剪可見對話稿，並預先填入所選的使用者訊息，方便您編輯後重新送出。
 
-In the transcript preview, the footer shows an `Esc edit prev` hint while editing is active.
+在對話稿預覽中，啟用編輯時頁尾會顯示 `Esc edit prev` 提示。
 
-### `--cd`/`-C` flag
+### `--cd`/`-C` 旗標
 
-Sometimes it is not convenient to `cd` to the directory you want Codex to use as the "working root" before running Codex. Fortunately, `codex` supports a `--cd` option so you can specify whatever folder you want. You can confirm that Codex is honoring `--cd` by double-checking the **workdir** it reports in the TUI at the start of a new session.
+有時在啟動 Codex 前先 `cd` 到您要使用的「工作根目錄」並不方便。所幸 `codex` 支援 `--cd` 選項，您可以指定任意資料夾。開始新會話時，請在 TUI 中查看 **workdir** 以確認 Codex 確實採用了 `--cd` 指定的路徑。
 
-### Shell completions
+### Shell 自動補全
 
-Generate shell completion scripts via:
+您可以這樣產生 shell 自動補全腳本：
 
 ```shell
 codex completion bash
@@ -63,9 +63,9 @@ codex completion zsh
 codex completion fish
 ```
 
-### Experimenting with the Codex Sandbox
+### 體驗 Codex 的沙盒
 
-To test to see what happens when a command is run under the sandbox provided by Codex, we provide the following subcommands in Codex CLI:
+若要測試在 Codex 提供的沙盒中執行指令的行為，我們在 Codex CLI 中提供以下子指令：
 
 ```
 # macOS
@@ -75,28 +75,28 @@ codex debug seatbelt [--full-auto] [COMMAND]...
 codex debug landlock [--full-auto] [COMMAND]...
 ```
 
-### Selecting a sandbox policy via `--sandbox`
+### 透過 `--sandbox` 選擇沙盒策略
 
-The Rust CLI exposes a dedicated `--sandbox` (`-s`) flag that lets you pick the sandbox policy **without** having to reach for the generic `-c/--config` option:
+Rust 版 CLI 提供專屬的 `--sandbox`（`-s`）旗標，讓您不用動用通用的 `-c/--config` 選項即可選擇沙盒策略：
 
 ```shell
-# Run Codex with the default, read-only sandbox
+# 以預設唯讀沙盒執行 Codex
 codex --sandbox read-only
 
-# Allow the agent to write within the current workspace while still blocking network access
+# 允許代理在目前工作區內寫入，同時仍封鎖網路存取
 codex --sandbox workspace-write
 
-# Danger! Disable sandboxing entirely (only do this if you are already running in a container or other isolated env)
+# 危險！完全停用沙盒（僅在您已於容器或其他隔離環境中執行時使用）
 codex --sandbox danger-full-access
 ```
 
-The same setting can be persisted in `~/.codex/config.toml` via the top-level `sandbox_mode = "MODE"` key, e.g. `sandbox_mode = "workspace-write"`.
+同樣的設定也可透過 `~/.codex/config.toml` 的頂層鍵 `sandbox_mode = "MODE"` 永久化，例如 `sandbox_mode = "workspace-write"`。
 
-## Code Organization
+## 程式碼結構
 
-This folder is the root of a Cargo workspace. It contains quite a bit of experimental code, but here are the key crates:
+此資料夾是 Cargo 工作區的根目錄。內容包含許多實驗性程式碼，但以下是關鍵 crate：
 
-- [`core/`](./core) contains the business logic for Codex. Ultimately, we hope this to be a library crate that is generally useful for building other Rust/native applications that use Codex.
-- [`exec/`](./exec) "headless" CLI for use in automation.
-- [`tui/`](./tui) CLI that launches a fullscreen TUI built with [Ratatui](https://ratatui.rs/).
-- [`cli/`](./cli) CLI multitool that provides the aforementioned CLIs via subcommands.
+- [`core/`](./core)：包含 Codex 的商業邏輯。最終希望成為一個通用的函式庫 crate，方便其他使用 Codex 的 Rust/原生應用程式。
+- [`exec/`](./exec)：用於自動化的「無頭」CLI。
+- [`tui/`](./tui)：啟動以 [Ratatui](https://ratatui.rs/) 打造的全螢幕 TUI 的 CLI。
+- [`cli/`](./cli)：CLI 多功能工具，透過子指令提供上述各種 CLI。

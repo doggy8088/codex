@@ -1,8 +1,8 @@
-## Advanced
+## 進階
 
-## Non-interactive / CI mode
+## 非互動／CI 模式
 
-Run Codex head-less in pipelines. Example GitHub Action step:
+在自動化流程中以無頭方式執行 Codex。以下為 GitHub Action 步驟範例：
 
 ```yaml
 - name: Update changelog via Codex
@@ -12,23 +12,23 @@ Run Codex head-less in pipelines. Example GitHub Action step:
     codex exec --full-auto "update CHANGELOG for next release"
 ```
 
-## Tracing / verbose logging
+## 追蹤／詳細記錄
 
-Because Codex is written in Rust, it honors the `RUST_LOG` environment variable to configure its logging behavior.
+由於 Codex 以 Rust 撰寫，因此可透過環境變數 `RUST_LOG` 來設定記錄行為。
 
-The TUI defaults to `RUST_LOG=codex_core=info,codex_tui=info` and log messages are written to `~/.codex/log/codex-tui.log`, so you can leave the following running in a separate terminal to monitor log messages as they are written:
+TUI 預設為 `RUST_LOG=codex_core=info,codex_tui=info`，並將記錄輸出到 `~/.codex/log/codex-tui.log`。您可以在另一個終端機持續執行以下指令，以即時監看寫入的記錄：
 
 ```
 tail -F ~/.codex/log/codex-tui.log
 ```
 
-By comparison, the non-interactive mode (`codex exec`) defaults to `RUST_LOG=error`, but messages are printed inline, so there is no need to monitor a separate file.
+相較之下，非互動模式（`codex exec`）預設為 `RUST_LOG=error`，而訊息會直接列印在輸出中，因此無需另外監看檔案。
 
-See the Rust documentation on [`RUST_LOG`](https://docs.rs/env_logger/latest/env_logger/#enabling-logging) for more information on the configuration options.
+更多設定選項請參閱 Rust 文件［<a href="https://docs.rs/env_logger/latest/env_logger/#enabling-logging">`RUST_LOG`</a>］。
 
-## Model Context Protocol (MCP)
+## Model Context Protocol（MCP）
 
-The Codex CLI can be configured to leverage MCP servers by defining an [`mcp_servers`](./config.md#mcp_servers) section in `~/.codex/config.toml`. It is intended to mirror how tools such as Claude and Cursor define `mcpServers` in their respective JSON config files, though the Codex format is slightly different since it uses TOML rather than JSON, e.g.:
+您可以在 `~/.codex/config.toml` 中定義 [`mcp_servers`](./config.md#mcp_servers) 區段，讓 Codex CLI 使用 MCP 伺服器。其設計意圖與 Claude 與 Cursor 等工具在 JSON 組態檔中定義 `mcpServers` 的方式相似，但 Codex 採用 TOML 而非 JSON，因此格式略有不同，例如：
 
 ```toml
 # IMPORTANT: the top-level key is `mcp_servers` rather than `mcpServers`.
@@ -39,4 +39,4 @@ env = { "API_KEY" = "value" }
 ```
 
 > [!TIP]
-> It is somewhat experimental, but the Codex CLI can also be run as an MCP _server_ via `codex mcp`. If you launch it with an MCP client such as `npx @modelcontextprotocol/inspector codex mcp` and send it a `tools/list` request, you will see that there is only one tool, `codex`, that accepts a grab-bag of inputs, including a catch-all `config` map for anything you might want to override. Feel free to play around with it and provide feedback via GitHub issues. 
+> 這項功能仍屬實驗性質，不過 Codex CLI 也能透過 `codex mcp` 以 MCP「伺服器」身分執行。若您以 MCP 用戶端（例如 `npx @modelcontextprotocol/inspector codex mcp`）啟動並送出 `tools/list` 請求，您會看到只有一個名為 `codex` 的工具，能接受多樣化輸入，包含用於覆寫各項設定的通用 `config` 對映。歡迎試用並透過 GitHub Issues 回饋。

@@ -1,15 +1,15 @@
-## Zero data retention (ZDR) usage
+## 零資料保留（ZDR）使用方式
 
-Codex CLI **does** support OpenAI organizations with [Zero Data Retention (ZDR)](https://platform.openai.com/docs/guides/your-data#zero-data-retention) enabled. If your OpenAI organization has Zero Data Retention enabled and you still encounter errors such as:
+Codex CLI **支援**啟用［<a href="https://platform.openai.com/docs/guides/your-data#zero-data-retention">Zero Data Retention（ZDR）</a>］的 OpenAI 組織。若您的組織已啟用 ZDR，但仍遇到如下錯誤：
 
 ```
 OpenAI rejected the request. Error details: Status: 400, Code: unsupported_parameter, Type: invalid_request_error, Message: 400 Previous response cannot be used for this organization due to Zero Data Retention.
 ```
 
-Ensure you are running `codex` with `--config disable_response_storage=true` or add this line to `~/.codex/config.toml` to avoid specifying the command line option each time:
+請確認您以 `--config disable_response_storage=true` 執行 `codex`，或將以下設定加入 `~/.codex/config.toml`，避免每次在命令列指定：
 
 ```toml
 disable_response_storage = true
 ```
 
-See [the configuration documentation on `disable_response_storage`](./config.md#disable_response_storage) for details. 
+詳細說明請參閱［<a href="./config.md#disable_response_storage">`disable_response_storage` 組態文件</a>］。 

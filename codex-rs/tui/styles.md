@@ -1,21 +1,21 @@
-# Headers, primary, and secondary text
+# 標題、主要與次要文字
 
-- **Headers:** Use `bold`. For markdown with various header levels, leave in the `#` signs.
-- **Primary text:** Default.
-- **Secondary text:** Use `dim`.
+- **標題：** 使用 `bold`。Markdown 的各層級標題請保留 `#` 符號。
+- **主要文字：** 使用預設色。
+- **次要文字：** 使用 `dim`。
 
-# Foreground colors
+# 前景顏色
 
-- **Default:** Most of the time, just use the default foreground color. `reset` can help get it back.
-- **User input tips, selection, and status indicators:** Use ANSI `cyan`.
-- **Success and additions:** Use ANSI `green`.
-- **Errors, failures and deletions:** Use ANSI `red`.
-- **Codex:** Use ANSI `magenta`.
+- **預設：** 大多數情況下請使用預設前景色；需要時可用 `reset` 回復。
+- **使用者輸入提示、選取與狀態指示：** 使用 ANSI `cyan`。
+- **成功與新增：** 使用 ANSI `green`。
+- **錯誤、失敗與刪除：** 使用 ANSI `red`。
+- **Codex：** 使用 ANSI `magenta`。
 
-# Avoid
+# 避免事項
 
-- Avoid custom colors because there's no guarantee that they'll contrast well or look good in various terminal color themes. (`shimmer.rs` is an exception that works well because we take the default colors and just adjust their levels.)
-- Avoid ANSI `black` & `white` as foreground colors because the default terminal theme color will do a better job. (Use `reset` if you need to in order to get those.) The exception is if you need contrast rendering over a manually colored background.
-- Avoid ANSI `blue` and `yellow` because for now the style guide doesn't use them. Prefer a foreground color mentioned above.
+- 避免自訂顏色，因為無法保證在各種終端主題下皆有良好對比或觀感。（`shimmer.rs` 是例外：它在預設色上僅調整明暗，使其效果良好。）
+- 避免使用 ANSI `black` 與 `white` 作為前景色，預設的終端主題通常更合適。（需要時請用 `reset` 回復。）若手動指定了背景色並需要對比，則可例外使用。
+- 避免 ANSI `blue` 與 `yellow`，目前風格指南不使用它們。優先採用上述前景色。
 
-(There are some rules to try to catch this in `clippy.toml`.)
+（`clippy.toml` 中有部分規則用於偵測上述情形。）
