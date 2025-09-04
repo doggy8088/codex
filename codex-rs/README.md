@@ -1,21 +1,21 @@
-# codex CLI (Rust Implementation)
+# codex CLI（Rust 實作）
 
-We provide codex CLI 作為 a standalone, native executable 到 ensure a zero-dependency 安裝.
+我們提供 codex CLI 作為獨立的原生可執行檔，以確保零依賴安裝。
 
-## Installing codex
+## 安裝 codex
 
-Today, the easiest way to install Codex is via `npm`, though we plan to publish Codex to other package managers soon.
+目前，安裝 Codex 最簡單的方法是透過 `npm`，雖然我們計劃很快將 Codex 發布到其他套件管理器。
 
 ```shell
 npm i -g @openai/codex@native
 codex
 ```
 
-You can also download a platform-specific release directly from our [GitHub Releases](https://github.com/openai/codex/releases).
+您也可以直接從我們的 [GitHub 發布版本](https://github.com/openai/codex/releases) 下載特定平台的發布版本。
 
-## 什麼's new 在 the Rust CLI
+## Rust CLI 的新功能
 
-While we are [working to close the gap between the TypeScript and Rust implementations of Codex CLI](https://github.com/openai/codex/issues/1262), note that the Rust CLI has a number of features that the TypeScript CLI does not!
+雖然我們正在[努力縮小 TypeScript 和 Rust 實作的 Codex CLI 之間的差距](https://github.com/openai/codex/issues/1262)，但請注意 Rust CLI 具有許多 TypeScript CLI 沒有的功能！
 
 ### Config
 

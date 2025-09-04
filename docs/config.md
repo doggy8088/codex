@@ -1,31 +1,31 @@
-# Config
+# 配置
 
 
-codex supports several mechanisms 為 setting config values:
+codex 支援多種設定配置值的機制：
 
-- Config-specific command-line flags, such as `--model o3` (highest precedence).
-- A generic `-c`/`--config` flag that takes a `key=value` pair, such as `--config model="o3"`.
-  - The key can contain dots to set a value deeper than the root, e.g. `--config model_providers.openai.wire_api="chat"`.
-  - Values can contain objects, such as `--config shell_environment_policy.include_only=["PATH", "HOME", "USER"]`.
-  - For consistency with `config.toml`, values are in TOML format rather than JSON format, so use `{a = 1, b = 2}` rather than `{"a": 1, "b": 2}`.
-  - If `value` cannot be parsed as a valid TOML value, it is treated as a string value. This means that both `-c model="o3"` and `-c model=o3` are equivalent.
-- The `$CODEX_HOME/config.toml` configuration file where the `CODEX_HOME` environment value defaults to `~/.codex`. (Note `CODEX_HOME` will also be where logs and other Codex-related information are stored.)
+- 特定於配置的命令列標誌，例如 `--model o3`（最高優先級）。
+- 通用的 `-c`/`--config` 標誌，接受 `key=value` 對，例如 `--config model="o3"`。
+  - 鍵值可以包含點號來設定比根目錄更深層的值，例如 `--config model_providers.openai.wire_api="chat"`。
+  - 值可以包含物件，例如 `--config shell_environment_policy.include_only=["PATH", "HOME", "USER"]`。
+  - 為了與 `config.toml` 保持一致，值採用 TOML 格式而非 JSON 格式，因此使用 `{a = 1, b = 2}` 而不是 `{"a": 1, "b": 2}`。
+  - 如果 `value` 無法解析為有效的 TOML 值，則將其視為字串值。這意味著 `-c model="o3"` 和 `-c model=o3` 是等效的。
+- `$CODEX_HOME/config.toml` 配置檔案，其中 `CODEX_HOME` 環境變數預設為 `~/.codex`。（注意 `CODEX_HOME` 也是日誌和其他 Codex 相關資訊的儲存位置。）
 
-Both the `--config` flag and the `config.toml` file support the following options:
+`--config` 標誌和 `config.toml` 檔案都支援以下選項：
 
 ## model
 
-The model 那個 codex should use.
+codex 應該使用的模型。
 
 ```toml
-model = "o3"  # overrides the default of "gpt-5"
+model = "o3"  # 覆蓋預設的 "gpt-5"
 ```
 
 ## model_providers
 
-This option lets you override and amend the default set of model providers bundled with Codex. This value is a map where the key is the value to use with `model_provider` to select the corresponding provider.
+此選項讓您覆蓋和修改 Codex 內建的預設模型提供者集合。此值是一個映射表，其中鍵是用於 `model_provider` 選擇對應提供者的值。
 
-為 範例, 如果 您 wanted 到 add a provider 那個 uses the OpenAI 4o model via the chat completions API, then 您 could add the following 設定:
+例如，如果您想要新增一個使用 OpenAI 4o 模型透過聊天完成 API 的提供者，您可以新增以下配置：
 
 ```toml
 # Recall that in TOML, root keys must be listed before tables.
@@ -49,7 +49,7 @@ wire_api = "chat"
 query_params = {}
 ```
 
-Note 這個 makes 它 possible 到 use codex CLI 使用 non-OpenAI models, so long 作為 they use a wire API 那個 is compatible 使用 the OpenAI chat completions API. 為 範例, 您 could define the following provider 到 use codex CLI 使用 Ollama running locally:
+注意這使得可以將 codex CLI 與非 OpenAI 模型一起使用，只要它們使用與 OpenAI 聊天完成 API 相容的 wire API。例如，您可以定義以下提供者來將 codex CLI 與本地運行的 Ollama 一起使用：
 
 ```toml
 [model_providers.ollama]
@@ -57,7 +57,7 @@ name = "Ollama"
 base_url = "http://localhost:11434/v1"
 ```
 
-或 a third-party provider (using a distinct environment variable 為 the API key):
+或第三方提供者（為 API 金鑰使用不同的環境變數）：
 
 ```toml
 [model_providers.mistral]

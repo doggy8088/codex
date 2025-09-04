@@ -29,11 +29,11 @@
 
 ### TUI Styling (ratatui)
 
-- Prefer Stylize helpers: use "text".dim(), .bold(), .cyan(), .italic(), .underlined() instead 的 manual Style 哪裡 possible.
+- 優先使用 Stylize 協助方法：盡可能使用 "text".dim()、.bold()、.cyan()、.italic()、.underlined() 而不是手動 Style。
 - Prefer simple conversions: use "text".into() for spans and vec![…].into() for lines; when inference is ambiguous (e.g., Paragraph::new/Cell::from), use Line::from(spans) or Span::from(text).
 - Computed styles: if the Style is computed at runtime, using `Span::styled` is OK (`Span::from(text).set_style(style)` is also acceptable).
 - Avoid hardcoded white: do not use `.white()`; prefer the default foreground (no color).
-- Chaining: combine helpers 透過 chaining 為 readability (e.g., url.cyan().underlined()).
+- 鏈式呼叫：透過鏈式呼叫來組合協助方法以提高可讀性（例如，url.cyan().underlined()）。
 - Single items: prefer "text".into(); use Line::來自(text) 或 Span::來自(text) only 當 the target type isn’t obvious 來自 context, 或 當 using .into() would require extra type annotations.
 - Building lines: use vec![…].into() 到 construct a Line 當 the target type is obvious 和 no extra type annotations are needed; otherwise use Line::來自(vec![…]).
 - Avoid churn: don’t refactor between equivalent forms (Span::styled ↔ set_style, Line::來自 ↔ .into()) without a clear readability 或 functional gain; follow file‑local conventions 和 do not introduce type annotations solely 到 satisfy .into().

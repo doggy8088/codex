@@ -1,32 +1,32 @@
 ## 貢獻
 
-這個 project is under active 開發 和 the code will likely change pretty significantly.
+此專案正在積極開發中，程式碼可能會發生重大變化。
 
-**在 the moment, we only 方案中使用 Codex 到 prioritize reviewing external contributions 為 bugs 或 security fixes.**
+**目前，我們只計劃使用 Codex 來優先審查針對錯誤或安全修復的外部貢獻。**
 
-如果 您 want 到 add a new feature 或 change the behavior 的 an existing one, please open an issue proposing the feature 和 get approval 來自 an OpenAI Team member before spending time building 它.
+如果您想新增新功能或變更現有功能的行為，請在花時間建構之前，先開啟一個議題提議該功能並獲得 OpenAI 團隊成員的批准。
 
-**New contributions that don't go through this process may be closed** if they aren't aligned with our current roadmap or conflict with other priorities/upcoming features.
+**沒有經過此流程的新貢獻可能會被關閉**，如果它們與我們目前的路線圖不符或與其他優先事項/即將推出的功能衝突。
 
 ### 開發工作流程
 
-- Create a _topic branch_ from `main` - e.g. `feat/interactive-prompt`.
-- Keep 您的 changes focused. Multiple unrelated fixes should be opened 作為 separate PR.
-- Following the [development setup](#development-workflow) instructions above, ensure your change is free of lint warnings and test failures.
+- 從 `main` 建立 _主題分支_ - 例如 `feat/interactive-prompt`。
+- 保持您的變更專注。多個不相關的修復應該作為單獨的 PR 開啟。
+- 按照上述 [開發設置](#development-workflow) 說明，確保您的變更沒有 lint 警告和測試失敗。
 
 ### 撰寫高影響力的程式碼變更
 
-1. **Start 使用 an issue.** Open a new one 或 comment 在 an existing discussion so we can agree 在 the solution before code is written.
-2. **Add 或 更新 tests.** Every new feature 或 bug-fix should come 使用 測試 coverage 那個 fails before 您的 change 和 passes afterwards. 100% coverage is not required, but aim 為 meaningful assertions.
-3. **Document behaviour.** If your change affects user-facing behaviour, update the README, inline help (`codex --help`), or relevant example projects.
-4. **Keep commits atomic.** Each commit should compile 和 the tests should pass. 這個 makes reviews 和 potential rollbacks easier.
+1. **從議題開始。** 開啟新的議題或在現有討論中留言，以便我們在撰寫程式碼之前就解決方案達成一致。
+2. **新增或更新測試。** 每個新功能或錯誤修復都應該包含測試覆蓋，在您的變更之前失敗，之後通過。不需要 100% 覆蓋率，但要有意義的斷言。
+3. **記錄行為。** 如果您的變更影響面向使用者的行為，請更新 README、內聯說明（`codex --help`）或相關的範例專案。
+4. **保持原子性提交。** 每次提交都應該能夠編譯且測試應該通過。這使審查和潛在的回滾更容易。
 
 ### 開啟拉取請求
 
-- Fill 在 the PR template (或 include similar information) - **什麼? 為什麼? 如何?**
-- Run **all** checks locally (`cargo test && cargo clippy --tests && cargo fmt -- --config imports_granularity=Item`). CI failures that could have been caught locally slow down the process.
-- Make sure your branch is up-to-date with `main` and that you have resolved merge conflicts.
-- Mark the PR 作為 **Ready 為 review** only 當 您 believe 它 is 在 a merge-able state.
+- 填寫 PR 模板（或包含類似資訊）- **什麼？為什麼？如何？**
+- 在本地運行**所有**檢查（`cargo test && cargo clippy --tests && cargo fmt -- --config imports_granularity=Item`）。可以在本地發現的 CI 失敗會拖慢流程。
+- 確保您的分支與 `main` 保持最新，並且您已解決合併衝突。
+- 只有當您認為它處於可合併狀態時，才將 PR 標記為**準備審查**。
 
 ### 審查流程
 

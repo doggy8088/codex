@@ -10,7 +10,7 @@
 
 ### DotSlash
 
-The GitHub Release also contains a [DotSlash](https://dotslash-cli.com/) file for the Codex CLI named `codex`. Using a DotSlash file makes it possible to make a lightweight commit to source control to ensure all contributors use the same version of an executable, regardless of what platform they use for development.
+GitHub 發布版本也包含一個名為 `codex` 的 [DotSlash](https://dotslash-cli.com/) 檔案供 Codex CLI 使用。使用 DotSlash 檔案可以對原始碼控制進行輕量級提交，以確保所有貢獻者使用相同版本的可執行檔，無論他們用於開發的平台為何。
 
 ### 從原始碼建構
 

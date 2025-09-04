@@ -1,28 +1,28 @@
 # 身份驗證
 
-## Usage-based billing alternative: Use an OpenAI API key
+## 用量計費替代方案：使用 OpenAI API 金鑰
 
-如果 您 prefer 到 pay-作為-您-go, 您 can still authenticate 使用 您的 OpenAI API key 透過 setting 它 作為 an environment variable:
+如果您偏好按使用量付費，您仍然可以透過將 OpenAI API 金鑰設定為環境變數來進行身份驗證：
 
 ```shell
 export OPENAI_API_KEY="your-api-key-here"
 ```
 
-這個 key must, 在 minimum, have write access 到 the Responses API.
+此金鑰至少必須具有 Responses API 的寫入權限。
 
-## Migrating 到 ChatGPT login 來自 API key
+## 從 API 金鑰遷移到 ChatGPT 登入
 
-如果 您've used the codex CLI before 使用 usage-based billing via an API key 和 want 到 switch 到 using 您的 ChatGPT 方案中使用 Codex, follow 這些 steps:
+如果您之前透過 API 金鑰使用 codex CLI 進行用量計費，並希望切換到使用您的 ChatGPT 方案使用 Codex，請按照以下步驟：
 
-1. Update the CLI and ensure `codex --version` is `0.20.0` or later
-2. Delete `~/.codex/auth.json` (on Windows: `C:\\Users\\USERNAME\\.codex\\auth.json`)
-3. Run `codex login` again
+1. 更新 CLI 並確保 `codex --version` 是 `0.20.0` 或更高版本
+2. 刪除 `~/.codex/auth.json`（在 Windows 上：`C:\\Users\\USERNAME\\.codex\\auth.json`）
+3. 再次執行 `codex login`
 
-## Forcing a specific auth method (進階)
+## 強制使用特定身份驗證方法（進階）
 
-您 can explicitly choose 哪個 身份驗證 codex should prefer 當 both are available.
+當兩種方法都可用時，您可以明確選擇 codex 應該偏好哪種身份驗證。
 
-- 到 always use 您的 API key (even 當 ChatGPT auth exists), set:
+- 要始終使用您的 API 金鑰（即使存在 ChatGPT 身份驗證），請設定：
 
 ```toml
 # ~/.codex/config.toml

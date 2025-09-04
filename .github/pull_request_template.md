@@ -1,6 +1,6 @@
-# External (non-OpenAI) 拉取請求 需求
+# 外部（非 OpenAI）拉取請求要求
 
-Before opening 這個 拉取請求, please read  dedicated "貢獻" markdown file 或 您的 PR may be closed:
+在開啟此拉取請求之前，請閱讀專用的「貢獻」markdown 檔案，否則您的 PR 可能會被關閉：
 https://github.com/openai/codex/blob/main/docs/contributing.md
 
-如果 您的 PR conforms 到 our contribution guidelines, replace 這個 text 使用 一個 detailed 和 high quality description 的 您的 changes.
+如果您的 PR 符合我們的貢獻指南，請將此文字替換為您變更的詳細且高品質的描述。
