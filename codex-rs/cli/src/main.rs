@@ -73,6 +73,9 @@ enum Subcommand {
     #[clap(visible_alias = "a")]
     Apply(ApplyCommand),
 
+    /// List all *.md files in the current directory or specified directory.
+    ListMd(ListMdCommand),
+
     /// Internal: generate TypeScript protocol bindings.
     #[clap(hide = true)]
     GenerateTs(GenerateTsCommand),
@@ -133,6 +136,21 @@ struct GenerateTsCommand {
     /// Optional path to the Prettier executable to format generated files
     #[arg(short = 'p', long = "prettier", value_name = "PRETTIER_BIN")]
     prettier: Option<PathBuf>,
+}
+
+#[derive(Debug, Parser)]
+struct ListMdCommand {
+    /// Directory to search for .md files (defaults to current directory)
+    #[arg(short = 'C', long = "directory", value_name = "DIR")]
+    directory: Option<PathBuf>,
+
+    /// Output results in JSON format
+    #[arg(long)]
+    json: bool,
+
+    /// Include full absolute paths instead of relative paths
+    #[arg(long)]
+    absolute: bool,
 }
 
 fn main() -> anyhow::Result<()> {
@@ -209,6 +227,9 @@ async fn cli_main(codex_linux_sandbox_exe: Option<PathBuf>) -> anyhow::Result<()
             prepend_config_flags(&mut apply_cli.config_overrides, cli.config_overrides);
             run_apply_command(apply_cli, None).await?;
         }
+        Some(Subcommand::ListMd(list_md_cli)) => {
+            run_list_md_command(list_md_cli).await?;
+        }
         Some(Subcommand::GenerateTs(gen_cli)) => {
             codex_protocol_ts::generate_ts(&gen_cli.out_dir, gen_cli.prettier.as_deref())?;
         }
@@ -232,4 +253,59 @@ fn print_completion(cmd: CompletionCommand) {
     let mut app = MultitoolCli::command();
     let name = "codex";
     generate(cmd.shell, &mut app, name, &mut std::io::stdout());
+}
+
+async fn run_list_md_command(cmd: ListMdCommand) -> anyhow::Result<()> {
+    use std::env;
+    use std::ffi::OsStr;
+    use walkdir::WalkDir;
+
+    let search_directory = match cmd.directory {
+        Some(dir) => dir,
+        None => env::current_dir()?,
+    };
+
+    let mut md_files = Vec::new();
+
+    for entry in WalkDir::new(&search_directory)
+        .follow_links(false)
+        .into_iter()
+        .filter_map(|e| e.ok())
+    {
+        let path = entry.path();
+
+        // Check if it's a file with .md extension
+        if path.is_file()
+            && let Some(extension) = path.extension()
+            && extension == OsStr::new("md")
+        {
+            let display_path = if cmd.absolute {
+                path.to_path_buf()
+            } else {
+                match path.strip_prefix(&search_directory) {
+                    Ok(rel_path) => rel_path.to_path_buf(),
+                    Err(_) => path.to_path_buf(),
+                }
+            };
+            md_files.push(display_path);
+        }
+    }
+
+    // Sort the results for consistent output
+    md_files.sort();
+
+    if cmd.json {
+        use serde_json::{json, to_string_pretty};
+        let output = json!({
+            "md_files": md_files.iter().map(|p| p.to_string_lossy()).collect::<Vec<_>>(),
+            "count": md_files.len()
+        });
+        println!("{}", to_string_pretty(&output)?);
+    } else {
+        for file in md_files {
+            println!("{}", file.display());
+        }
+    }
+
+    Ok(())
 }
