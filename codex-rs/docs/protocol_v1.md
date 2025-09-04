@@ -1,102 +1,102 @@
-Overview of Protocol Defined in [protocol.rs](../core/src/protocol.rs) and [agent.rs](../core/src/agent.rs).
+在 [protocol.rs](../core/src/protocol.rs) 和 [agent.rs](../core/src/agent.rs) 中定義的協定總覽。
 
-The goal of this document is to define terminology used in the system and explain the expected behavior of the system.
+本文件的目標是定義系統中使用的術語，並解釋系統的預期行為。
 
-NOTE: The code might not completely match this spec. There are a few minor changes that need to be made after this spec has been reviewed, which will not alter the existing TUI's functionality.
+注意：程式碼可能與本規格不完全相符。在本規格審核後，需要進行一些小幅變更，這些變更不會改變現有 TUI 的功能。
 
-## Entities
+## 實體
 
-These are entities exit on the codex backend. The intent of this section is to establish vocabulary and construct a shared mental model for the `Codex` core system.
+這些是存在於 codex 後端的實體。本節旨在建立詞彙表，並為 `Codex` 核心系統建構一個共享的心智模型。
 
 0. `Model`
-   - In our case, this is the Responses REST API
+   - 在我們的案例中，這是指 Responses REST API
 1. `Codex`
-   - The core engine of codex
-   - Runs locally, either in a background thread or separate process
-   - Communicated to via a queue pair – SQ (Submission Queue) / EQ (Event Queue)
-   - Takes user input, makes requests to the `Model`, executes commands and applies patches.
+   - codex 的核心引擎
+   - 在本機執行，可在背景執行緒或獨立程序中運作
+   - 透過一對佇列進行通訊 – SQ（提交佇列）/ EQ（事件佇列）
+   - 接收使用者輸入，向 `Model` 發出請求，執行指令並套用補丁。
 2. `Session`
-   - The `Codex`'s current configuration and state
-   - `Codex` starts with no `Session`, and it is initialized by `Op::ConfigureSession`, which should be the first message sent by the UI.
-   - The current `Session` can be reconfigured with additional `Op::ConfigureSession` calls.
-   - Any running execution is aborted when the session is reconfigured.
+   - `Codex` 當前的組態與狀態
+   - `Codex` 啟動時沒有 `Session`，它由 `Op::ConfigureSession` 初始化，這應該是 UI 發送的第一個訊息。
+   - 當前的 `Session` 可以透過額外的 `Op::ConfigureSession` 呼叫來重新組態。
+   - 當 session 重新組態時，任何執行中的任務都會被中止。
 3. `Task`
-   - A `Task` is `Codex` executing work in response to user input.
-   - `Session` has at most one `Task` running at a time.
-   - Receiving `Op::UserInput` starts a `Task`
-   - Consists of a series of `Turn`s
-   - The `Task` executes to until:
-     - The `Model` completes the task and there is no output to feed into an additional `Turn`
-     - Additional `Op::UserInput` aborts the current task and starts a new one
-     - UI interrupts with `Op::Interrupt`
-     - Fatal errors are encountered, eg. `Model` connection exceeding retry limits
-     - Blocked by user approval (executing a command or patch)
+   - `Task` 是 `Codex` 為回應使用者輸入而執行的工作。
+   - `Session` 一次最多只能有一個 `Task` 在執行。
+   - 接收到 `Op::UserInput` 會啟動一個 `Task`
+   - 由一系列的 `Turn` 組成
+   - `Task` 會一直執行，直到：
+     - `Model` 完成任務，且沒有輸出可供下一個 `Turn` 使用
+     - 額外的 `Op::UserInput` 會中止當前任務並啟動一個新任務
+     - UI 透過 `Op::Interrupt` 中斷
+     - 遇到致命錯誤，例如 `Model` 連線超過重試次數限制
+     - 因等待使用者核准而被阻擋（執行指令或補丁）
 4. `Turn`
-   - One cycle of iteration in a `Task`, consists of:
-     - A request to the `Model` - (initially) prompt + (optional) `last_response_id`, or (in loop) previous turn output
-     - The `Model` streams responses back in an SSE, which are collected until "completed" message and the SSE terminates
-     - `Codex` then executes command(s), applies patch(es), and outputs message(s) returned by the `Model`
-     - Pauses to request approval when necessary
-   - The output of one `Turn` is the input to the next `Turn`
-   - A `Turn` yielding no output terminates the `Task`
+   - `Task` 中的一個迭代循環，包含：
+     - 向 `Model` 發出請求 - （初始時）提示 + （可選）`last_response_id`，或（在迴圈中）前一個 turn 的輸出
+     - `Model` 透過 SSE 以串流方式傳回回應，這些回應會被收集直到收到「completed」訊息且 SSE 終止
+     - `Codex` 接著執行指令、套用補丁，並輸出 `Model` 回傳的訊息
+     - 在必要時暫停以請求核准
+   - 一個 `Turn` 的輸出是下一個 `Turn` 的輸入
+   - 若一個 `Turn` 沒有產生任何輸出，則 `Task` 會終止
 
-The term "UI" is used to refer to the application driving `Codex`. This may be the CLI / TUI chat-like interface that users operate, or it may be a GUI interface like a VSCode extension. The UI is external to `Codex`, as `Codex` is intended to be operated by arbitrary UI implementations.
+「UI」一詞用來指稱驅動 `Codex` 的應用程式。这可能是使用者操作的 CLI / TUI 聊天式介面，也可能是像 VSCode 擴充功能這樣的 GUI 介面。UI 位於 `Codex` 外部，因為 `Codex` 的設計是為了能由任意的 UI 實作來操作。
 
-When a `Turn` completes, the `response_id` from the `Model`'s final `response.completed` message is stored in the `Session` state to resume the thread given the next `Op::UserInput`. The `response_id` is also returned in the `EventMsg::TurnComplete` to the UI, which can be used to fork the thread from an earlier point by providing it in the `Op::UserInput`.
+當一個 `Turn` 完成時，來自 `Model` 最終 `response.completed` 訊息的 `response_id` 會被儲存在 `Session` 狀態中，以便在下一次收到 `Op::UserInput` 時續行該執行緒。`response_id` 也會透過 `EventMsg::TurnComplete` 回傳給 UI，UI 可以在 `Op::UserInput` 中提供此 ID，從而從較早的時間點分支出執行緒。
 
-Since only 1 `Task` can be run at a time, for parallel tasks it is recommended that a single `Codex` be run for each thread of work.
+由於一次只能執行 1 個 `Task`，對於平行任務，建議為每個工作執行緒執行一個獨立的 `Codex`。
 
-## Interface
+## 介面
 
 - `Codex`
-  - Communicates with UI via a `SQ` (Submission Queue) and `EQ` (Event Queue).
+  - 透過 `SQ`（提交佇列）和 `EQ`（事件佇列）與 UI 通訊。
 - `Submission`
-  - These are messages sent on the `SQ` (UI -> `Codex`)
-  - Has an string ID provided by the UI, referred to as `sub_id`
-  - `Op` refers to the enum of all possible `Submission` payloads
-    - This enum is `non_exhaustive`; variants can be added at future dates
+  - 這些是在 `SQ` 上傳送的訊息（UI -> `Codex`）
+  - 具有一個由 UI 提供的字串 ID，稱為 `sub_id`
+  - `Op` 指的是所有可能的 `Submission` 承載資料的列舉
+    - 此列舉是 `non_exhaustive`；未來可能會新增其他變體
 - `Event`
-  - These are messages sent on the `EQ` (`Codex` -> UI)
-  - Each `Event` has a non-unique ID, matching the `sub_id` from the `Op::UserInput` that started the current task.
-  - `EventMsg` refers to the enum of all possible `Event` payloads
-    - This enum is `non_exhaustive`; variants can be added at future dates
-    - It should be expected that new `EventMsg` variants will be added over time to expose more detailed information about the model's actions.
+  - 這些是在 `EQ` 上傳送的訊息（`Codex` -> UI）
+  - 每個 `Event` 都有一個非唯一的 ID，與啟動當前任務的 `Op::UserInput` 中的 `sub_id` 相符。
+  - `EventMsg` 指的是所有可能的 `Event` 承載資料的列舉
+    - 此列舉是 `non_exhaustive`；未來可能會新增其他變體
+    - 應預期未來會陸續新增 `EventMsg` 變體，以揭露更多關於模型行為的詳細資訊。
 
-For complete documentation of the `Op` and `EventMsg` variants, refer to [protocol.rs](../core/src/protocol.rs). Some example payload types:
+關於 `Op` 和 `EventMsg` 變體的完整文件，請參考 [protocol.rs](../core/src/protocol.rs)。以下是一些承載資料類型的範例：
 
 - `Op`
-  - `Op::UserInput` – Any input from the user to kick off a `Task`
-  - `Op::Interrupt` – Interrupts a running task
-  - `Op::ExecApproval` – Approve or deny code execution
+  - `Op::UserInput` – 任何來自使用者用以啟動 `Task` 的輸入
+  - `Op::Interrupt` – 中斷一個執行中的任務
+  - `Op::ExecApproval` – 核准或拒絕程式碼執行
 - `EventMsg`
-  - `EventMsg::AgentMessage` – Messages from the `Model`
-  - `EventMsg::ExecApprovalRequest` – Request approval from user to execute a command
-  - `EventMsg::TaskComplete` – A task completed successfully
-  - `EventMsg::Error` – A task stopped with an error
-  - `EventMsg::TurnComplete` – Contains a `response_id` bookmark for last `response_id` executed by the task. This can be used to continue the task at a later point in time, perhaps with additional user input.
+  - `EventMsg::AgentMessage` – 來自 `Model` 的訊息
+  - `EventMsg::ExecApprovalRequest` – 請求使用者核准以執行一個指令
+  - `EventMsg::TaskComplete` – 一個任務成功完成
+  - `EventMsg::Error` – 一個任務因錯誤而停止
+  - `EventMsg::TurnComplete` – 包含一個 `response_id` 書籤，指向任務執行的最後一個 `response_id`。這可以用於在稍後的時間點，可能加上額外的使用者輸入，來續行任務。
 
-The `response_id` returned from each task matches the OpenAI `response_id` stored in the API's `/responses` endpoint. It can be stored and used in future `Sessions` to resume threads of work.
+每個任務回傳的 `response_id` 與儲存在 API 的 `/responses` 端點中的 OpenAI `response_id` 相符。它可以被儲存並在未來的 `Sessions` 中用來續行工作執行緒。
 
-## Transport
+## 傳輸
 
-Can operate over any transport that supports bi-directional streaming. - cross-thread channels - IPC channels - stdin/stdout - TCP - HTTP2 - gRPC
+可在任何支援雙向串流的傳輸協定上運作。 - 跨執行緒通道 - IPC 通道 - stdin/stdout - TCP - HTTP2 - gRPC
 
-Non-framed transports, such as stdin/stdout and TCP, should use newline-delimited JSON in sending messages.
+非框架式傳輸，例如 stdin/stdout 和 TCP，在傳送訊息時應使用換行符分隔的 JSON。
 
-## Example Flows
+## 範交流程
 
-Sequence diagram examples of common interactions. In each diagram, some unimportant events may be eliminated for simplicity.
+常見互動的序列圖範例。為了簡潔起見，每個圖中都可能省略了一些不重要的事件。
 
-### Basic UI Flow
+### 基本 UI 流程
 
-A single user input, followed by a 2-turn task
+單一使用者輸入，接著是一個 2-turn 的任務
 
 ```mermaid
 sequenceDiagram
-    box UI
-    participant user as User
+    box 使用者介面
+    participant user as 使用者
     end
-    box Daemon
+    box 守護程序
     participant codex as Codex
     participant session as Session
     participant task as Task
@@ -105,39 +105,39 @@ sequenceDiagram
     participant agent as Model
     end
     user->>codex: Op::ConfigureSession
-    codex-->>session: create session
+    codex-->>session: 建立 session
     codex->>user: Event::SessionConfigured
     user->>session: Op::UserInput
-    session-->>+task: start task
+    session-->>+task: 啟動任務
     task->>user: Event::TaskStarted
-    task->>agent: prompt
-    agent->>task: response (exec)
+    task->>agent: 提示
+    agent->>task: 回應 (exec)
     task->>-user: Event::ExecApprovalRequest
     user->>+task: Op::ExecApproval::Allow
     task->>user: Event::ExecStart
-    task->>task: exec
+    task->>task: 執行
     task->>user: Event::ExecStop
     task->>user: Event::TurnComplete
     task->>agent: stdout
-    agent->>task: response (patch)
-    task->>task: apply patch (auto-approved)
-    task->>agent: success
-    agent->>task: response<br/>(msg + completed)
+    agent->>task: 回應 (patch)
+    task->>task: 套用補丁 (自動核准)
+    task->>agent: 成功
+    agent->>task: 回應<br/>(訊息 + 完成)
     task->>user: Event::AgentMessage
     task->>user: Event::TurnComplete
     task->>-user: Event::TaskComplete
 ```
 
-### Task Interrupt
+### 任務中斷
 
-Interrupting a task and continuing with additional user input.
+中斷一個任務並以額外的使用者輸入續行。
 
 ```mermaid
 sequenceDiagram
-    box UI
-    participant user as User
+    box 使用者介面
+    participant user as 使用者
     end
-    box Daemon
+    box 守護程序
     participant session as Session
     participant task1 as Task1
     participant task2 as Task2
@@ -146,26 +146,26 @@ sequenceDiagram
     participant agent as Model
     end
     user->>session: Op::UserInput
-    session-->>+task1: start task
+    session-->>+task1: 啟動任務
     task1->>user: Event::TaskStarted
-    task1->>agent: prompt
-    agent->>task1: response (exec)
-    task1->>task1: exec (auto-approved)
+    task1->>agent: 提示
+    agent->>task1: 回應 (exec)
+    task1->>task1: 執行 (自動核准)
     task1->>user: Event::TurnComplete
     task1->>agent: stdout
-    task1->>agent: response (exec)
-    task1->>task1: exec (auto-approved)
+    task1->>agent: 回應 (exec)
+    task1->>task1: 執行 (自動核准)
     user->>task1: Op::Interrupt
-    task1->>-user: Event::Error("interrupted")
-    user->>session: Op::UserInput w/ last_response_id
-    session-->>+task2: start task
+    task1->>-user: Event::Error("已中斷")
+    user->>session: Op::UserInput 帶有 last_response_id
+    session-->>+task2: 啟動任務
     task2->>user: Event::TaskStarted
-    task2->>agent: prompt + Task1 last_response_id
-    agent->>task2: response (exec)
-    task2->>task2: exec (auto-approve)
+    task2->>agent: 提示 + Task1 的 last_response_id
+    agent->>task2: 回應 (exec)
+    task2->>task2: 執行 (自動核准)
     task2->>user: Event::TurnCompleted
     task2->>agent: stdout
-    agent->>task2: msg + completed
+    agent->>task2: 訊息 + 完成
     task2->>user: Event::AgentMessage
     task2->>user: Event::TurnCompleted
     task2->>-user: Event::TaskCompleted
