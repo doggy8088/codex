@@ -1,62 +1,62 @@
-# Authentication
+# 身份驗證
 
-## Usage-based billing alternative: Use an OpenAI API key
+## 即用即付的替代方案：使用 OpenAI API 金鑰
 
-If you prefer to pay-as-you-go, you can still authenticate with your OpenAI API key by setting it as an environment variable:
+如果您偏好即用即付，仍然可以透過將您的 OpenAI API 金鑰設定為環境變數來進行驗證：
 
 ```shell
 export OPENAI_API_KEY="your-api-key-here"
 ```
 
-This key must, at minimum, have write access to the Responses API.
+此金鑰至少必須具備 Responses API 的寫入權限。
 
-## Migrating to ChatGPT login from API key
+## 從 API 金鑰遷移至 ChatGPT 登入
 
-If you've used the Codex CLI before with usage-based billing via an API key and want to switch to using your ChatGPT plan, follow these steps:
+如果您之前曾透過 API 金鑰使用 Codex CLI 的即用即付模式，且想要改用您的 ChatGPT 方案，請遵循以下步驟：
 
-1. Update the CLI and ensure `codex --version` is `0.20.0` or later
-2. Delete `~/.codex/auth.json` (on Windows: `C:\\Users\\USERNAME\\.codex\\auth.json`)
-3. Run `codex login` again
+1. 更新 CLI 並確保 `codex --version` 為 `0.20.0` 或更新版本
+2. 刪除 `~/.codex/auth.json` （在 Windows 上為：`C:\\Users\\USERNAME\\.codex\\auth.json`）
+3. 再次執行 `codex login`
 
-## Forcing a specific auth method (advanced)
+## 強制指定特定驗證方式（進階）
 
-You can explicitly choose which authentication Codex should prefer when both are available.
+當兩種驗證方式皆可用時，您可以明確選擇 Codex 應優先使用哪一種。
 
-- To always use your API key (even when ChatGPT auth exists), set:
+- 若要一律使用您的 API 金鑰（即使已存在 ChatGPT 驗證），請設定：
 
 ```toml
 # ~/.codex/config.toml
 preferred_auth_method = "apikey"
 ```
 
-Or override ad-hoc via CLI:
+或透過 CLI 臨時覆寫：
 
 ```bash
 codex --config preferred_auth_method="apikey"
 ```
 
-- To prefer ChatGPT auth (default), set:
+- 若要優先使用 ChatGPT 驗證（預設），請設定：
 
 ```toml
 # ~/.codex/config.toml
 preferred_auth_method = "chatgpt"
 ```
 
-Notes:
+注意事項：
 
-- When `preferred_auth_method = "apikey"` and an API key is available, the login screen is skipped.
-- When `preferred_auth_method = "chatgpt"` (default), Codex prefers ChatGPT auth if present; if only an API key is present, it will use the API key. Certain account types may also require API-key mode.
-- To check which auth method is being used during a session, use the `/status` command in the TUI.
+- 當 `preferred_auth_method = "apikey"` 且有可用的 API 金鑰時，將會跳過登入畫面。
+- 當 `preferred_auth_method = "chatgpt"`（預設）時，若 ChatGPT 驗證存在，Codex 會優先使用；若僅有 API 金鑰存在，則會使用 API 金鑰。某些帳戶類型可能也需要 API 金鑰模式。
+- 若要檢查工作階段期間正在使用哪種驗證方式，請在 TUI 中使用 `/status` 指令。
 
-## Connecting on a "Headless" Machine
+## 在「無頭機器」上連線
 
-Today, the login process entails running a server on `localhost:1455`. If you are on a "headless" server, such as a Docker container or are `ssh`'d into a remote machine, loading `localhost:1455` in the browser on your local machine will not automatically connect to the webserver running on the _headless_ machine, so you must use one of the following workarounds:
+目前，登入流程需要在 `localhost:1455` 上執行一個伺服器。如果您在「無頭」伺服器上（例如 Docker 容器，或透過 `ssh` 連線到遠端機器），在您本機的瀏覽器中載入 `localhost:1455` 並不會自動連線到在_無頭_機器上執行的網頁伺服器，因此您必須使用下列其中一種解決方案：
 
-### Authenticate locally and copy your credentials to the "headless" machine
+### 在本機進行驗證並將憑證複製到「無頭」機器
 
-The easiest solution is likely to run through the `codex login` process on your local machine such that `localhost:1455` _is_ accessible in your web browser. When you complete the authentication process, an `auth.json` file should be available at `$CODEX_HOME/auth.json` (on Mac/Linux, `$CODEX_HOME` defaults to `~/.codex` whereas on Windows, it defaults to `%USERPROFILE%\\.codex`).
+最簡單的解決方案可能是在您的本機上執行 `codex login` 流程，讓您的網頁瀏覽器可以存取 `localhost:1455`。當您完成驗證流程後，一個 `auth.json` 檔案應該會出現在 `$CODEX_HOME/auth.json`（在 Mac/Linux 上，`$CODEX_HOME` 預設為 `~/.codex`，而在 Windows 上則預設為 `%USERPROFILE%\\.codex`）。
 
-Because the `auth.json` file is not tied to a specific host, once you complete the authentication flow locally, you can copy the `$CODEX_HOME/auth.json` file to the headless machine and then `codex` should "just work" on that machine. Note to copy a file to a Docker container, you can do:
+由於 `auth.json` 檔案並未綁定特定主機，一旦您在本機完成驗證流程，就可以將 `$CODEX_HOME/auth.json` 檔案複製到無頭機器上，接著 `codex` 應該就能在那台機器上「直接運作」。請注意，若要將檔案複製到 Docker 容器，您可以執行：
 
 ```shell
 # substitute MY_CONTAINER with the name or id of your Docker container:
@@ -65,26 +65,26 @@ docker exec MY_CONTAINER mkdir -p "$CONTAINER_HOME/.codex"
 docker cp auth.json MY_CONTAINER:"$CONTAINER_HOME/.codex/auth.json"
 ```
 
-whereas if you are `ssh`'d into a remote machine, you likely want to use [`scp`](https://en.wikipedia.org/wiki/Secure_copy_protocol):
+然而，如果您是 `ssh` 進入遠端機器，您可能會想使用 [`scp`](https://en.wikipedia.org/wiki/Secure_copy_protocol)：
 
 ```shell
 ssh user@remote 'mkdir -p ~/.codex'
 scp ~/.codex/auth.json user@remote:~/.codex/auth.json
 ```
 
-or try this one-liner:
+或嘗試這個單行指令：
 
 ```shell
 ssh user@remote 'mkdir -p ~/.codex && cat > ~/.codex/auth.json' < ~/.codex/auth.json
 ```
 
-### Connecting through VPS or remote
+### 透過 VPS 或遠端連線
 
-If you run Codex on a remote machine (VPS/server) without a local browser, the login helper starts a server on `localhost:1455` on the remote host. To complete login in your local browser, forward that port to your machine before starting the login flow:
+如果您在遠端機器 (VPS/伺服器) 上執行 Codex 且沒有本機瀏覽器，登入輔助程式會在遠端主機的 `localhost:1455` 上啟動一個伺服器。為了在您的本機瀏覽器中完成登入，請在開始登入流程前，將該端口轉發到您的機器：
 
 ```bash
 # From your local machine
 ssh -L 1455:localhost:1455 <user>@<remote-host>
 ```
 
-Then, in that SSH session, run `codex` and select "Sign in with ChatGPT". When prompted, open the printed URL (it will be `http://localhost:1455/...`) in your local browser. The traffic will be tunneled to the remote server. 
+然後，在該 SSH 工作階段中，執行 `codex` 並選擇「使用 ChatGPT 登入」。當出現提示時，在您的本機瀏覽器中開啟印出的 URL (它將是 `http://localhost:1455/...`)。流量將會透過隧道傳輸到遠端伺服器。

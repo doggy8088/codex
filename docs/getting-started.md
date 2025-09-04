@@ -1,30 +1,30 @@
-## Getting started
+## 入門指南
 
-### CLI usage
+### CLI 用法
 
-| Command            | Purpose                            | Example                         |
+| 指令               | 用途                               | 範例                            |
 | ------------------ | ---------------------------------- | ------------------------------- |
-| `codex`            | Interactive TUI                    | `codex`                         |
-| `codex "..."`      | Initial prompt for interactive TUI | `codex "fix lint errors"`       |
-| `codex exec "..."` | Non-interactive "automation mode"  | `codex exec "explain utils.ts"` |
+| `codex`            | 互動式 TUI                         | `codex`                         |
+| `codex "..."`      | 用於互動式 TUI 的初始提示          | `codex "fix lint errors"`       |
+| `codex exec "..."` | 非互動式「自動化模式」             | `codex exec "explain utils.ts"` |
 
-Key flags: `--model/-m`, `--ask-for-approval/-a`.
+主要旗標：`--model/-m`、`--ask-for-approval/-a`。
 
-Resume options:
+續存選項：
 
-- `--resume`: open an interactive picker of recent sessions (shows a preview of the first real user message). Conflicts with `--continue`.
-- `--continue`: resume the most recent session without showing the picker (falls back to starting fresh if none exist). Conflicts with `--resume`.
+- `--resume`：開啟一個互動式選擇器以選擇最近的對話階段（顯示第一條真實使用者訊息的預覽）。與 `--continue` 衝突。
+- `--continue`：續存最近的對話階段，而不顯示選擇器（如果不存在任何對話階段，則退回至重新開始）。與 `--resume` 衝突。
 
-Examples:
+範例：
 
 ```shell
 codex --resume
 codex --continue
 ```
 
-### Running with a prompt as input
+### 以提示作為輸入執行
 
-You can also run Codex CLI with a prompt as input:
+您也可以使用提示作為輸入來執行 Codex CLI：
 
 ```shell
 codex "explain this codebase to me"
@@ -34,58 +34,58 @@ codex "explain this codebase to me"
 codex --full-auto "create the fanciest todo-list app"
 ```
 
-That's it - Codex will scaffold a file, run it inside a sandbox, install any
-missing dependencies, and show you the live result. Approve the changes and
-they'll be committed to your working directory.
+就這麼簡單 - Codex 將會建構檔案骨架、在沙箱內執行它、安裝任何
+缺失的相依套件，並向您顯示即時結果。批准變更後，
+它們將會被提交至您的工作目錄。
 
-### Example prompts
+### 提示範例
 
-Below are a few bite-size examples you can copy-paste. Replace the text in quotes with your own task. See the [prompting guide](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md) for more tips and usage patterns.
+以下是一些您可以複製貼上的簡短範例。請將引號中的文字替換為您自己的任務。欲了解更多提示技巧和使用模式，請參閱 [提示指南](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md)。
 
-| ✨  | What you type                                                                   | What happens                                                               |
+| ✨  | 您輸入的內容                                                                    | 會發生什麼事                                                                |
 | --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 1   | `codex "Refactor the Dashboard component to React Hooks"`                       | Codex rewrites the class component, runs `npm test`, and shows the diff.   |
-| 2   | `codex "Generate SQL migrations for adding a users table"`                      | Infers your ORM, creates migration files, and runs them in a sandboxed DB. |
-| 3   | `codex "Write unit tests for utils/date.ts"`                                    | Generates tests, executes them, and iterates until they pass.              |
-| 4   | `codex "Bulk-rename *.jpeg -> *.jpg with git mv"`                               | Safely renames files and updates imports/usages.                           |
-| 5   | `codex "Explain what this regex does: ^(?=.*[A-Z]).{8,}$"`                      | Outputs a step-by-step human explanation.                                  |
-| 6   | `codex "Carefully review this repo, and propose 3 high impact well-scoped PRs"` | Suggests impactful PRs in the current codebase.                            |
-| 7   | `codex "Look for vulnerabilities and create a security review report"`          | Finds and explains security bugs.                                          |
+| 1   | `codex "將 Dashboard 元件重構成 React Hooks"`                       | Codex 會重寫類別元件，執行 `npm test`，並顯示差異。    |
+| 2   | `codex "為新增 users 資料表產生 SQL 遷移"`                      | 推斷您的 ORM，建立遷移檔案，並在沙盒資料庫中執行。 |
+| 3   | `codex "為 utils/date.ts 撰寫單元測試"`                                     | 產生測試，執行它們，並迭代直到通過為止。               |
+| 4   | `codex "使用 git mv 大量重新命名 *.jpeg -> *.jpg"`                                | 安全地重新命名檔案並更新匯入/使用之處。                            |
+| 5   | `codex "解釋這個正規表達式的作用：^(?=.*[A-Z]).{8,}$"`                      | 輸出一步步的人性化解釋。                                   |
+| 6   | `codex "仔細審查此 repo，並提出 3 個高影響力且範圍明確的 PR"` | 在目前的程式碼庫中建議有影響力的 PR。                            |
+| 7   | `codex "尋找漏洞並建立一份安全審查報告"`          | 找出並解釋安全性錯誤。                                           |
 
-### Memory with AGENTS.md
+### 使用 AGENTS.md 的記憶體
 
-You can give Codex extra instructions and guidance using `AGENTS.md` files. Codex looks for `AGENTS.md` files in the following places, and merges them top-down:
+您可以使用 `AGENTS.md` 檔案為 Codex 提供額外的指令和指引。Codex 會在以下位置尋找 `AGENTS.md` 檔案，並由上而下合併它們：
 
-1. `~/.codex/AGENTS.md` - personal global guidance
-2. `AGENTS.md` at repo root - shared project notes
-3. `AGENTS.md` in the current working directory - sub-folder/feature specifics
+1. `~/.codex/AGENTS.md` - 個人的全域指引
+2. `AGENTS.md` 在 repo 根目錄 - 共用的專案筆記
+3. `AGENTS.md` 在目前工作目錄 - 子資料夾/特定功能
 
-For more information on how to use AGENTS.md, see the [official AGENTS.md documentation](https://agents.md/).
+有關如何使用 AGENTS.md 的更多資訊，請參閱 [AGENTS.md 官方文件](https://agents.md/)。
 
-### Tips & shortcuts
+### 提示與捷徑
 
-#### Use `@` for file search
+#### 使用 `@` 進行檔案搜尋
 
-Typing `@` triggers a fuzzy-filename search over the workspace root. Use up/down to select among the results and Tab or Enter to replace the `@` with the selected path. You can use Esc to cancel the search.
+輸入 `@` 會觸發工作區根目錄的模糊檔名搜尋。使用上/下鍵在結果中選取，並按 Tab 或 Enter 以所選路徑取代 `@`。您可以按 Esc 取消搜尋。
 
-#### Image input
+#### 圖片輸入
 
-Paste images directly into the composer (Ctrl+V / Cmd+V) to attach them to your prompt. You can also attach files via the CLI using `-i/--image` (comma‑separated):
+將圖片直接貼到編輯器中 (Ctrl+V / Cmd+V) 以附加到您的提示。您也可以透過 CLI 使用 `-i/--image` (以逗號分隔) 附加檔案：
 
 ```bash
 codex -i screenshot.png "Explain this error"
 codex --image img1.png,img2.jpg "Summarize these diagrams"
 ```
 
-#### Esc–Esc to edit a previous message
+#### 按兩次 Esc 編輯先前的訊息
 
-When the chat composer is empty, press Esc to prime “backtrack” mode. Press Esc again to open a transcript preview highlighting the last user message; press Esc repeatedly to step to older user messages. Press Enter to confirm and Codex will fork the conversation from that point, trim the visible transcript accordingly, and pre‑fill the composer with the selected user message so you can edit and resubmit it.
+當聊天撰寫區為空時，按下 Esc 鍵以準備進入「回溯」模式。再按一次 Esc 鍵以開啟對話紀錄預覽，並突顯最後一則使用者訊息；重複按下 Esc 鍵可逐步跳至更早的使用者訊息。按下 Enter 鍵確認後，Codex 將從該點分岔對話、相應地修剪可見的對話紀錄，並將所選的使用者訊息預先填入撰寫區，以便您編輯和重新提交。
 
-In the transcript preview, the footer shows an `Esc edit prev` hint while editing is active.
+在對話紀錄預覽中，當編輯功能啟用時，頁腳會顯示 `Esc edit prev` 的提示。
 
-#### Shell completions
+#### Shell 自動補全
 
-Generate shell completion scripts via:
+透過以下方式產生 shell 自動補全腳本：
 
 ```shell
 codex completion bash
@@ -93,6 +93,6 @@ codex completion zsh
 codex completion fish
 ```
 
-#### `--cd`/`-C` flag
+#### `--cd`/`-C` 旗標
 
-Sometimes it is not convenient to `cd` to the directory you want Codex to use as the "working root" before running Codex. Fortunately, `codex` supports a `--cd` option so you can specify whatever folder you want. You can confirm that Codex is honoring `--cd` by double-checking the **workdir** it reports in the TUI at the start of a new session.
+有時在執行 Codex 之前，要先 `cd` 到您希望 Codex 當作「工作根目錄」的資料夾並不方便。幸運的是，`codex` 支援 `--cd` 選項，讓您可以指定任何想要的資料夾。您可以透過再次檢查新會話開始時 TUI 中回報的 **workdir**，來確認 Codex 是否遵循 `--cd` 的設定。

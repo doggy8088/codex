@@ -1,47 +1,47 @@
-# Release Management
+# 版本發布管理
 
-Currently, we made Codex binaries available in three places:
+目前，我們在三個地方提供 Codex 二進位檔：
 
 - GitHub Releases https://github.com/openai/codex/releases/
 - `@openai/codex` on npm: https://www.npmjs.com/package/@openai/codex
 - `codex` on Homebrew: https://formulae.brew.sh/formula/codex
 
-# Cutting a Release
+# 發布版本
 
-Currently, choosing the version number for the next release is a manual process. In general, just go to https://github.com/openai/codex/releases/latest and see what the latest release is and increase the minor version by `1`, so if the current release is `0.20.0`, then the next release should be `0.21.0`.
+目前，為下一個版本選擇版本號是一個手動過程。一般來說，只需前往 https://github.com/openai/codex/releases/latest 查看最新版本，並將次要版本號增加 `1`，所以如果目前版本是 `0.20.0`，那麼下一個版本就應該是 `0.21.0`。
 
-Assuming you are trying to publish `0.21.0`, first you would run:
+假設您要發布 `0.21.0`，首先您需要執行：
 
 ```shell
 VERSION=0.21.0
 ./codex-rs/scripts/create_github_release.sh "$VERSION"
 ```
 
-This will kick off a GitHub Action to build the release, so go to https://github.com/openai/codex/actions/workflows/rust-release.yml to find the corresponding workflow. (Note: we should automate finding the workflow URL with `gh`.)
+這將會觸發一個 GitHub Action 來建構發布版本，所以請前往 https://github.com/openai/codex/actions/workflows/rust-release.yml 尋找對應的工作流程。（注意：我們應該使用 `gh` 來自動化尋找工作流程 URL 的過程。）
 
-When the workflow finishes, the GitHub Release is "done," but you still have to consider npm and Homebrew.
+當工作流程完成後，GitHub Release 就「完成」了，但您仍然需要考慮 npm 和 Homebrew。
 
-## Publishing to npm
+## 發布至 npm
 
-After the GitHub Release is done, you can publish to npm. Note the GitHub Release includes the appropriate artifact for npm (which is the output of `npm pack`), which should be named `codex-npm-VERSION.tgz`. To publish to npm, run:
+在 GitHub Release 完成後，您就可以發布到 npm。請注意，GitHub Release 包含適用於 npm 的成品（即 `npm pack` 的輸出），其名稱應為 `codex-npm-VERSION.tgz`。要發布到 npm，請執行：
 
 ```
 VERSION=0.21.0
 ./scripts/publish_to_npm.py "$VERSION"
 ```
 
-Note that you must have permissions to publish to https://www.npmjs.com/package/@openai/codex for this to succeed.
+請注意，您必須擁有發布到 https://www.npmjs.com/package/@openai/codex 的權限才能成功。
 
-## Publishing to Homebrew
+## 發布至 Homebrew
 
-For Homebrew, we are properly set up with their automation system, so every few hours or so it will check our GitHub repo to see if there is a new release. When it finds one, it will put up a PR to create the equivalent Homebrew release, which entails building Codex CLI from source on various versions of macOS.
+對於 Homebrew，我們已經與他們的自動化系統正確設定，因此它會每隔數小時檢查我們的 GitHub repo 是否有新版本。當它找到新版本時，就會提出一個 PR 來建立對應的 Homebrew 版本，這需要在各種 macOS 版本上從原始碼建構 Codex CLI。
 
-Inevitably, you just have to refresh this page periodically to see if the release has been picked up by their automation system:
+無可避免地，您必須定期重新整理此頁面，以查看發布是否已被其自動化系統接收：
 
 https://github.com/Homebrew/homebrew-core/pulls?q=%3Apr+codex
 
-Once everything builds, a Homebrew admin has to approve the PR. Again, the whole process takes several hours and we don't have total control over it, but it seems to work pretty well.
+一旦所有內容都建構完成，Homebrew 管理員就必須核准該 PR。同樣地，整個過程需要數小時，我們無法完全控制，但它似乎運作得相當不錯。
 
-For reference, our Homebrew formula lives at:
+作為參考，我們的 Homebrew formula 位於：
 
 https://github.com/Homebrew/homebrew-core/blob/main/Formula/c/codex.rb

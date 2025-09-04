@@ -1,15 +1,15 @@
-## Custom Prompts
+## 自訂提示
 
-Save frequently used prompts as Markdown files and reuse them quickly from the slash menu.
+將常用提示儲存為 Markdown 檔案，並可從斜線選單快速重複使用。
 
-- Location: Put files in `$CODEX_HOME/prompts/` (defaults to `~/.codex/prompts/`).
-- File type: Only Markdown files with the `.md` extension are recognized.
-- Name: The filename without the `.md` extension becomes the slash entry. For a file named `my-prompt.md`, type `/my-prompt`.
-- Content: The file contents are sent as your message when you select the item in the slash popup and press Enter.
-- How to use:
-  - Start a new session (Codex loads custom prompts on session start).
-  - In the composer, type `/` to open the slash popup and begin typing your prompt name.
-  - Use Up/Down to select it. Press Enter to submit its contents, or Tab to autocomplete the name.
-- Notes:
-  - Files with names that collide with built‑in commands (e.g. `/init`) are ignored and won’t appear.
-  - New or changed files are discovered on session start. If you add a new prompt while Codex is running, start a new session to pick it up.
+- 位置：將檔案放置於 `$CODEX_HOME/prompts/` (預設為 `~/.codex/prompts/`)。
+- 檔案類型：僅會辨識副檔名為 `.md` 的 Markdown 檔案。
+- 名稱：不含 `.md` 副檔名的檔案名稱即為斜線項目。例如，名為 `my-prompt.md` 的檔案，請輸入 `/my-prompt`。
+- 內容：當您在斜線彈出視窗中選取項目並按下 Enter 鍵時，檔案內容將會作為您的訊息傳送。
+- 使用方式：
+  - 啟動一個新工作階段 (Codex 會在工作階段啟動時載入自訂提示)。
+  - 在編輯器中，輸入 `/` 以開啟斜線彈出視窗，並開始輸入您的提示名稱。
+  - 使用上/下鍵選取。按下 Enter 鍵提交其內容，或按下 Tab 鍵自動完成名稱。
+- 注意事項：
+  - 與內建指令名稱衝突的檔案 (例如 `/init`) 將會被忽略且不會顯示。
+  - 系統會在工作階段啟動時偵測到新增或變更的檔案。如果您在 Codex 執行期間新增提示，請啟動一個新工作階段以載入它。

@@ -1,10 +1,10 @@
-## Experimental technology disclaimer
+## 實驗性技術免責聲明
 
-Codex CLI is an experimental project under active development. It is not yet stable, may contain bugs, incomplete features, or undergo breaking changes. We're building it in the open with the community and welcome:
+Codex CLI 是一個正在積極開發中的實驗性專案。它尚未穩定，可能包含錯誤、不完整的功能，或經歷重大變更。我們正與社群一同公開建構此專案，並歡迎：
 
-- Bug reports
-- Feature requests
-- Pull requests
-- Good vibes
+- 錯誤報告
+- 功能請求
+- 拉取請求
+- 善意的支持
 
-Help us improve by filing issues or submitting PRs (see the section below for how to contribute)! 
+歡迎透過提交問題或拉取請求（PRs）來幫助我們改進（請參閱下方的貢獻方式說明）！ 

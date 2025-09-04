@@ -1,18 +1,18 @@
-## Install & build
+## 安裝與建置
 
-### System requirements
+### 系統需求
 
-| Requirement                 | Details                                                         |
+| 需求                        | 詳細資訊                                                      |
 | --------------------------- | --------------------------------------------------------------- |
-| Operating systems           | macOS 12+, Ubuntu 20.04+/Debian 10+, or Windows 11 **via WSL2** |
-| Git (optional, recommended) | 2.23+ for built-in PR helpers                                   |
-| RAM                         | 4-GB minimum (8-GB recommended)                                 |
+| 作業系統                    | macOS 12+、Ubuntu 20.04+/Debian 10+，或 Windows 11 **透過 WSL2** |
+| Git (選用，建議)          | 2.23+，用於內建的 PR 輔助工具                                   |
+| 記憶體                      | 最低 4-GB (建議 8-GB)                                         |
 
 ### DotSlash
 
-The GitHub Release also contains a [DotSlash](https://dotslash-cli.com/) file for the Codex CLI named `codex`. Using a DotSlash file makes it possible to make a lightweight commit to source control to ensure all contributors use the same version of an executable, regardless of what platform they use for development.
+GitHub Release 也包含一個名為 `codex` 的 Codex CLI [DotSlash](https://dotslash-cli.com/) 檔案。使用 DotSlash 檔案可以輕量地提交到原始碼控制，以確保所有貢獻者無論使用何種開發平台，都能使用相同版本的可執行檔。
 
-### Build from source
+### 從原始碼建置
 
 ```bash
 # Clone the repository and navigate to the root of the Cargo workspace.
